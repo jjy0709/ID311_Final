@@ -1,7 +1,7 @@
 function Floor({select, setSelect}) {
     
     return (
-        <mesh rotation-x={-Math.PI/2} rotation-z={Math.PI/4} position={[0,-24.5,0]} castShadow receiveShadow onPointerDown={setSelect({...select, id: -1})}>
+        <mesh rotation-x={-Math.PI/2} rotation-z={Math.PI/4} position={[0,-24.5,0]} castShadow receiveShadow onPointerDown={()=>setSelect({...select, id: -1})}>
             <boxBufferGeometry attach="geometry" args={[50, 50, 1]} />
             <meshPhongMaterial color={0x5555ff}  />
         </mesh>

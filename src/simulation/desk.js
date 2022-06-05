@@ -53,7 +53,7 @@ function Desk({select, setSelect, pos, id}) {
     });
 
     const down = (e, sector) => {
-        setSelect({...select,id, sector, onWall: false, keyup});
+        setSelect({...select,id, sector, onWall: false});
         setPrev(new THREE.Vector3(e.point.x, e.point.y, e.point.z));
         setDrag(true);
     }
@@ -78,19 +78,26 @@ function Desk({select, setSelect, pos, id}) {
         setDrag(false);
     }
 
-    const keyup = (e) => {
+    const key = (e) => {
         const newPosition = position.clone();
-        newPosition.x += 1;
-        newPosition.z += 1;
+        // newPosition.x += 1;
+        newPosition.z -= 1;
         setPosition(newPosition);
     }
 
     document.onkeydown = function(e) {
-        if(e.key == 'ArrowUp') {
-            if(select.id == id) {
-                // console.log("BB");
-                keyup();
+        const newPosition = position.clone();
+        if(select.id == id) {
+            if(e.key == 'ArrowUp') {
+                newPosition.z -= 1;
+            } else if(e.key == 'ArrowDown') {
+                newPosition.z += 1;
+            } else if(e.key == 'ArrowRight') {
+                newPosition.x += 1;
+            } else if(e.key == 'ArrowLeft') {
+                newPosition.x -= 1;
             }
+            setPosition(newPosition);
         }
     }
 
