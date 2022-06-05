@@ -1,34 +1,69 @@
+import React from 'react'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
-import { STLLoader } from 'three/examples/jsm/loaders/STLLoader'
-import { useLoader } from '@react-three/fiber'
+import { useLoader, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import catUrl from './objects/cat.obj'
-import wallUrl from './objects/wall.stl'
 import { useMemo, useState } from 'react'
 
 function Cat() {
-    const [position, setPosition] = useState([0,-5,-5]);
-    let prevPosition = [...position];
+    const [position, setPosition] = useState(new THREE.Vector3(0,0.5,0));
+    const [prevClick, setClick] = useState(new THREE.Vector3(0,0,0));
+    
+    const [drag, setDrag] = useState(false);
     const BasicMaterial = new THREE.MeshBasicMaterial({color: new THREE.Color(0x0000ff)});
+    
     const obj = useLoader(OBJLoader, catUrl);
-    const obj2 = useLoader(STLLoader, wallUrl);
     const model = useMemo(() => obj.clone(true), []);
-    const click = (e) => {
-        prevPosition = e.point;
-    }
-    const up = (e) => {
-        // console.log("up");
-        const afterPosition = e.point;
-        let newPosition = [...position];
-        newPosition[0] = position[0] + afterPosition[0] - prevPosition[0];
-        newPosition[1] = position[1] + afterPosition[1] - prevPosition[1];
-        newPosition[2] = position[2] + afterPosition[2] - prevPosition[2];
-        // setPosition(afterPosition);
+    const [box, setBox] = useState(new THREE.Box3().setFromObject(model));
+    const { camera } = useThree();
+    const cameraLookAt = new THREE.Vector3();
+    camera.getWorldDirection(cameraLookAt);
+    const scene = new THREE.Plane(cameraLookAt, 0);
+    const down = (e) => {
+        const center = new THREE.Vector3();
+        box.getCenter(center);
+        const proj = new THREE.Vector3();
+        scene.projectPoint(new THREE.Vector3(e.point.x,e.point.y,e.point.z), proj);
+        // setPosition(new THREE.Vector3(proj.x,0.5,proj.z));        
+        setPosition(new THREE.Vector3(e.point.x, 0.5, e.point.z - 3));        
+        setDrag(true);
     }
 
-    model.children.forEach((mesh, i) => { mesh.material = BasicMaterial; });
-    return <primitive scale={0.1} rotation-x={-Math.PI/2} object={model} position={position} 
-                onPointerDown={(e) => click(e)} onPointerOver={(e)=>up(e)}/>
+    const over = (e) => {
+        if(drag) {
+            const center = new THREE.Vector3();
+            box.getCenter(center);
+            const proj = new THREE.Vector3();
+            scene.projectPoint(new THREE.Vector3(e.point.x,e.point.y,e.point.z), proj);
+            // setPosition(new THREE.Vector3(proj.x,0.5,proj.z));   
+        setPosition(new THREE.Vector3(e.point.x, 0, e.point.z - 3));        
+
+        }
+    }
+    
+    const up = (e) => {
+        const center = new THREE.Vector3();
+        box.getCenter(center);
+        const proj = new THREE.Vector3();
+        scene.projectPoint(new THREE.Vector3(e.point.x,e.point.y,e.point.z), proj);
+        // setPosition(new THREE.Vector3(proj.x,0.5,proj.z)); 
+        setPosition(new THREE.Vector3(e.point.x, 0, e.point.z - 3));        
+
+        setDrag(false);
+    }
+
+    model.children.forEach((mesh, i) => { 
+        mesh.material = BasicMaterial;
+    });
+    // shadow.children.forEach((mesh, i) => { mesh.material = ShadowMaterial; });
+    return  (
+        <React.Fragment>
+        <primitive scale={0.3} rotation-x={-Math.PI/2} object={model} position={position} 
+            onPointerDown={(e) => down(e)} onPointerMove={(e)=>over(e)} onPointerUp={(e)=>up(e)}/>
+        {/* <primitive scale={0.1} rotation-x={-Math.PI/2} object={shadow} position={[0,0,0]} 
+            onPointerDown={(e) => click(e)} onPointerOver={(e)=>up(e)}/> */}
+        </React.Fragment>
+    )
 }
 
 export default Cat;

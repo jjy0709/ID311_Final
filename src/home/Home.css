@@ -1,0 +1,23 @@
+.home {
+    background-image: url(./background.png);
+    height: 100vh;
+    background-size: cover;
+    text-align : center;
+}
+
+.logo {
+    margin-top: 15vh;
+}
+
+.start {
+    margin-top: 10vh;
+    font-size: 6vh;
+    font-weight: bold;
+    opacity: 0.5;
+    color: black;
+    cursor: pointer;
+}
+
+.start:hover {
+    opacity: 1;
+}

@@ -3,9 +3,7 @@
 }
 
 .App > div {
-  width: 50%;
-  height: 80vh;
-  float: left;
+  height: 120vh;
 }
 
 .App-logo {

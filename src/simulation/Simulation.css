@@ -1,0 +1,24 @@
+.Screen {
+    width: 100%;
+    height: 100vh;
+    float: left;
+    display: flex;
+
+}
+
+.sidebar {
+    float: left;
+    display: flex;
+    width: 45%;
+    font-size: 1vh;
+}
+
+.option {
+    cursor: pointer;
+}
+
+.content {
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
