@@ -14,7 +14,6 @@ import Sidebar from './sidebar/Sidebar';
 function Simulation() {
     const [select, setSelect] = useState({id:-1});
     const [cameraPosition, setCameraPosition] = useState([0,60,100]);
-    const camera_position = [[0,60,100], [90,60,100], [-90,60,100], [0,900,100]];
     const [zoom, setZoom] = useState(10);
     const [option, setOption] = useState();
     
@@ -23,20 +22,15 @@ function Simulation() {
         setFurniture([...furnitures, id]);
     }
 
+
     const selectOption = (op) => {
         setOption(op);
     }
 
-    let [modal, setModal] = useState(false);
+    const changeCameraPosition = (position)=>{
+        setCameraPosition(position);
+    }
 
-    // document.onkeydown = function(e) {
-    //     if(e.key == 'ArrowUp') {
-    //         if(select.keyup) {
-    //             // console.log("BB");
-    //             select.keyup();
-    //         }
-    //     }
-    // }
 
     return(
         <div className="Screen">
@@ -47,12 +41,12 @@ function Simulation() {
                     <li className="option" onClick={()=>selectOption('color')}>Change Color</li>
                 </ul>
                 <div className="content">
-                    <Sidebar option={option} addFurniture={addFurniture} select={select}/>
+                    <Sidebar option={option} addFurniture={addFurniture} changeCameraPosition={changeCameraPosition} select={select}/>
                 </div>
             </div>
-            <Canvas orthographic camera={{position:camera_position[0], zoom:zoom}}>
+            <Canvas orthographic camera={{position:[0,60,100], zoom:zoom}}>
                 {/* <OrbitControls /> */}
-                <Camera />
+                {/* <Camera /> */}
                 {/* <ambientLight castShadow/> */}
                 <pointLight position={[0,0, 100]} castShadow/>
                 <directionalLight position={[20,20,20]} castShadow />

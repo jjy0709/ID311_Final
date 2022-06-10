@@ -1,9 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { Camera } from 'three';
 import { fur_list } from "./furnitures";
 import './Sidebar.css'
 
+import faceside from './cameraposition/faceside.png';
+import leftside from './cameraposition/leftside.png';
+import rightside from './cameraposition/rightside.png';
+import upside from './cameraposition/upside.png';
 
-function Sidebar({option, addFurniture}) {
+
+function Sidebar({option, addFurniture, changeCameraPosition}) {
     switch (option) {
         case 'furniture': {
             return(
@@ -15,16 +21,19 @@ function Sidebar({option, addFurniture}) {
             ) 
             break;
         }
-
         case 'view':{
+            const camera_position = [
+                {name : "face", position:[0,60,100], img : faceside},
+                {name : "right", position:[90,60,100], img : leftside},
+                {name : "left", position:[-90,60,100], img : rightside},
+                {name : "up", position:[0,900,100], img : upside}
+            ]
+            console.log(camera_position[1].position);
             return(
                 <div className='view'>
-                    <ul>
-                    <li className="option_face">face</li>
-                    <li className="option_right">right</li>
-                    <li className="option_left">left</li>
-                    <li className="option_up">up</li>
-                </ul>
+                    {camera_position.map((e, i)=>{
+                        return(<img className='positionlist' src={e.img} onClick={()=>changeCameraPosition(e.position)} key={i}/>);
+                    })}
                 </div>
             )
         }

@@ -7,7 +7,6 @@ import {ChromePicker} from 'react-color';
 import { Floor, Wall } from './wall';
 import Camera from './Camera';
 
-
 function Floorplan() {
     const [select, setSelect] = useState({id:-1});
     const [cameraPosition, setCameraPosition] = useState([0,60,100]);
@@ -26,18 +25,18 @@ function Floorplan() {
             <div className="sidebar">
                 <button onClick={()=>setShowColorPicker_wall(showColorPicker_wall=>!showColorPicker_wall)}>{showColorPicker_wall ? 'close color picker' : 'Pick a wall color'}</button>
                 {
-                    showColorPicker_wall && <ChromePicker color_wall={color_wall} onChange={updatedColor => setColor_wall(updatedColor.hex)}/>
+                    showColorPicker_wall && (<ChromePicker color_wall={color_wall} onChange={updatedColor => setColor_wall(updatedColor.hex)}/>)
                     
                 }
-                <br/>
+                
                 <button onClick={()=>setShowColorPicker_floor(showColorPicker_floor=>!showColorPicker_floor)}>{showColorPicker_floor ? 'close color picker' : 'Pick a floor color'}</button>
                 {
-                    showColorPicker_floor && <ChromePicker color_floor={color_floor} onChange={updatedColor => setColor_floor(updatedColor.hex)}/>
+                    showColorPicker_floor && (<ChromePicker color_floor={color_floor} onChange={updatedColor => setColor_floor(updatedColor.hex)}/>)
                     
                 }
             </div>
             
-            
+
             <div className="Screen">
                 <Canvas orthographic camera={{position:cameraPosition, zoom:zoom}}>
                     {/* <OrbitControls /> */}
