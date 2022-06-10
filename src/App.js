@@ -6,6 +6,7 @@ import Floorplan from './floorplan/Floorplan';
 import Simulation from './simulation/Simulation';
 import Home from './home/Home';
 import Select from './select/Select';
+import Select_2 from './select_2/Select_2';
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/select" element={<Select />} />
         <Route path="/room" element={<Simulation />} />
+        <Route path="/select_2" element={<Select_2 />}/>
+        <Route path="/floorplan" element={<Floorplan/>}/>
       </Routes>
     </Router>
   );

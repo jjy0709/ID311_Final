@@ -34,6 +34,9 @@
     display: inline-block;
     cursor: pointer;
 }
+.btn:hover {
+    filter: opacity(0.5) drop-shadow(0 0 0 #FFE600);
+  }
 
 .screen {
     width: 90vh;
@@ -57,5 +60,12 @@
     font-size: 5vh;
     font-weight: bold;
     color: black;
+    cursor: pointer;
+}
+
+.selectBtn:hover{
+    font-size: 5vh;
+    font-weight: bold;
+    color: #ffcc00;
     cursor: pointer;
 }

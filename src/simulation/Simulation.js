@@ -14,6 +14,7 @@ import Sidebar from './sidebar/Sidebar';
 function Simulation() {
     const [select, setSelect] = useState({id:-1});
     const [cameraPosition, setCameraPosition] = useState([0,60,100]);
+    const camera_position = [[0,60,100], [90,60,100], [-90,60,100], [0,900,100]];
     const [zoom, setZoom] = useState(10);
     const [option, setOption] = useState();
     
@@ -25,6 +26,8 @@ function Simulation() {
     const selectOption = (op) => {
         setOption(op);
     }
+
+    let [modal, setModal] = useState(false);
 
     // document.onkeydown = function(e) {
     //     if(e.key == 'ArrowUp') {
@@ -47,7 +50,7 @@ function Simulation() {
                     <Sidebar option={option} addFurniture={addFurniture} select={select}/>
                 </div>
             </div>
-            <Canvas orthographic camera={{position:cameraPosition, zoom:zoom}}>
+            <Canvas orthographic camera={{position:camera_position[0], zoom:zoom}}>
                 {/* <OrbitControls /> */}
                 <Camera />
                 {/* <ambientLight castShadow/> */}
