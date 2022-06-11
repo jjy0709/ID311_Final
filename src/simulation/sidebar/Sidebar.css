@@ -6,8 +6,8 @@
 
 .positionlist{
     width: 80%;
-    border-color: black;
-    border-width: 1px;
+    color : rgb(255, 255, 255);
+    font-weight :2;
 }
 
 .colorpicker_title{

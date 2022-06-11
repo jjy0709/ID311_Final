@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import * as Three from 'three';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Environment, PerspectiveCamera, useScroll, TransformControls } from '@react-three/drei';
+import { OrbitControls, Environment, PerspectiveCamera, OrthographicCamera,useScroll, TransformControls } from '@react-three/drei';
 import Cat from './cat';
 import ReactDom from "react-dom";
 
@@ -61,12 +61,13 @@ function Simulation() {
                     <Sidebar option={option} addFurniture={addFurniture} changeCameraPosition={changeCameraPosition} changewallcolor={changewallcolor} changefloorcolor={changefloorcolor} select={select}/>
                 </div>
             </div>
-            <Canvas orthographic camera={{position:{changeCameraPosition}, zoom:zoom}} >
+            <Canvas   orthographic camera={{position:cameraPosition, zoom:zoom}}>
+                {/* <OrthographicCamera position = {cameraPosition} zoom = {zoom}/> */}
                 <pointLight position={[0,0, 100]} castShadow/>
                 <directionalLight position={[20,20,20]} castShadow />
-                <Floor select={select} setSelect={setSelect} floor_color={setColor_floor}/>
-                <Wall left={true} select={select} setSelect={setSelect} wall_color = {setColor_wall}/>
-                <Wall left={false} select={select} setSelect={setSelect} wall_color = {setColor_wall}/>
+                <Floor select={select} setSelect={setSelect} floor_color={color_floor}/>
+                <Wall left={true} select={select} setSelect={setSelect} wall_color = {color_wall}/>
+                <Wall left={false} select={select} setSelect={setSelect} wall_color = {color_wall}/>
                 {furnitures.map((e, i) => {
                     let now = false;
                     if(i == select.id) now = true;
@@ -76,7 +77,9 @@ function Simulation() {
                         return <Bed now={now} select={select} setSelect={setSelect} id={furnitures.length} key={furnitures.length}/>;
                     }
                 })}
-                <Cat/>
+
+
+
             </Canvas>
         </div>
     );

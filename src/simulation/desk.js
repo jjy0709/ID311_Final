@@ -13,6 +13,7 @@ function Desk({select, setSelect, pos, id}) {
     const [position, setPosition] = useState(pos);
     const [prev, setPrev] = useState();
     const [drag, setDrag] = useState(false);
+
     const BodyMaterial = new THREE.MeshPhongMaterial({color: new THREE.Color(0x99825e)});
     
     const body = useLoader(OBJLoader, bodyUrl);
@@ -96,6 +97,8 @@ function Desk({select, setSelect, pos, id}) {
                 newPosition.x += 1;
             } else if(e.key == 'ArrowLeft') {
                 newPosition.x -= 1;
+            } else if(e.key == 'C'){
+                console.log('desk space event')
             }
             setPosition(newPosition);
         }
