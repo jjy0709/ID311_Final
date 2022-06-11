@@ -1,3 +1,4 @@
+
 .floorplan {
     background-image: url(../home/background.png);
     height: 150vh;
@@ -16,9 +17,9 @@
 .sidebar {
     background-color: rgb(223, 223, 223);
     float: left;
-    /* display: flex; */
+    display: flex;
     width: 20%;
-    font-size: 2vh;
+    font-size: 3vh;
 }
 
 .option {

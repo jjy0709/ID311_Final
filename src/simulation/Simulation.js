@@ -1,11 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import * as Three from 'three';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Environment, PerspectiveCamera, useScroll } from '@react-three/drei';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { OrbitControls, Environment, PerspectiveCamera, useScroll, TransformControls } from '@react-three/drei';
+//import { TransformControls } from '@react-three/drei';
 import Cat from './cat';
+import ReactDom from "react-dom";
 
 import './Simulation.css';
-import { Floor, Wall } from './Wall';
+import { Floor, Wall } from '../floorplan/wall';
 import Camera from './Camera';
 import Bed from './bed';
 import Desk from './desk';
@@ -31,6 +33,36 @@ function Simulation() {
         setCameraPosition(position);
     }
 
+    const Transformcontroller = () => {
+        const { camera, gl } = useThree();
+        useEffect(
+           () => {
+              const controls = new TransformControls(camera, gl.domElement);
+              return () => {
+                controls.dispose();
+              };
+           },
+           [camera, gl]
+        );
+        return null;
+     }
+    
+     const CameraController = () => {
+        const { camera, gl } = useThree();
+        useEffect(
+          () => {
+            const controls = new OrbitControls(camera, gl.domElement);
+      
+            controls.minDistance = 3;
+            controls.maxDistance = 20;
+            return () => {
+              controls.dispose();
+            };
+          },
+          [camera, gl]
+        );
+        return null;
+      };
 
     return(
         <div className="Screen">
@@ -44,10 +76,9 @@ function Simulation() {
                     <Sidebar option={option} addFurniture={addFurniture} changeCameraPosition={changeCameraPosition} select={select}/>
                 </div>
             </div>
-            <Canvas orthographic camera={{position:[0,60,100], zoom:zoom}}>
-                {/* <OrbitControls /> */}
-                {/* <Camera /> */}
-                {/* <ambientLight castShadow/> */}
+            <Canvas >
+                <Transformcontroller />
+                <CameraController />
                 <pointLight position={[0,0, 100]} castShadow/>
                 <directionalLight position={[20,20,20]} castShadow />
                 <Floor select={select} setSelect={setSelect} />
@@ -62,6 +93,7 @@ function Simulation() {
                         return <Bed now={now} select={select} setSelect={setSelect} id={furnitures.length} key={furnitures.length}/>;
                     }
                 })}
+                <Cat/>
             </Canvas>
         </div>
     );

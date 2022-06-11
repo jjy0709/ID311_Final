@@ -7,7 +7,7 @@ import {ChromePicker} from 'react-color';
 import { Floor, Wall } from './wall';
 import Camera from './Camera';
 
-function Floorplan() {
+function Floorplan(setwall_color, setfloor_color) {
     const [select, setSelect] = useState({id:-1});
     const [cameraPosition, setCameraPosition] = useState([0,60,100]);
     const [zoom, setZoom] = useState(10);
@@ -23,20 +23,22 @@ function Floorplan() {
         <div className="floorplan">
             <div className="header">MAKE ROOM</div>
             <div className="sidebar">
-                <button onClick={()=>setShowColorPicker_wall(showColorPicker_wall=>!showColorPicker_wall)}>{showColorPicker_wall ? 'close color picker' : 'Pick a wall color'}</button>
-                {
-                    showColorPicker_wall && (<ChromePicker color_wall={color_wall} onChange={updatedColor => setColor_wall(updatedColor.hex)}/>)
-                    
-                }
-                
-                <button onClick={()=>setShowColorPicker_floor(showColorPicker_floor=>!showColorPicker_floor)}>{showColorPicker_floor ? 'close color picker' : 'Pick a floor color'}</button>
-                {
-                    showColorPicker_floor && (<ChromePicker color_floor={color_floor} onChange={updatedColor => setColor_floor(updatedColor.hex)}/>)
-                    
-                }
+                <div>
+                    <button onClick={()=>setShowColorPicker_wall(showColorPicker_wall=>!showColorPicker_wall)}>{showColorPicker_wall ? 'close wall color picker' : 'Pick a wall color'}</button>
+                    {
+                        showColorPicker_wall && (<ChromePicker color={color_wall} onChange={updatedColor => setColor_wall(updatedColor.hex)}/>)
+                    }
+                </div>
+             
+                <div>
+                    <button onClick={()=>setShowColorPicker_floor(showColorPicker_floor=>!showColorPicker_floor)}>{showColorPicker_floor ? 'close floor color picker' : 'Pick a floor color'}</button>
+                    {
+                        showColorPicker_floor && (<ChromePicker color={color_floor} onChange={updatedColor => setColor_floor(updatedColor.hex)}/>)
+                    }
+                </div>
+
             </div>
             
-
             <div className="Screen">
                 <Canvas orthographic camera={{position:cameraPosition, zoom:zoom}}>
                     {/* <OrbitControls /> */}
@@ -49,8 +51,10 @@ function Floorplan() {
                     <Wall left={false} select={select} setSelect={setSelect} wall_color={color_wall}/>
                 </Canvas>
             </div>
-
-            <Link to="/room"style={{textDecoration:'none'}}><div className="selectBtn">SELECT</div></Link>
+            <div>
+                <Link to="/room"style={{textDecoration:'none'}}><div className="selectBtn">START</div></Link>
+            </div>
+            
             
         </div>
     );

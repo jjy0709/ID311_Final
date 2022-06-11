@@ -28,7 +28,6 @@ function Sidebar({option, addFurniture, changeCameraPosition}) {
                 {name : "left", position:[-90,60,100], img : rightside},
                 {name : "up", position:[0,900,100], img : upside}
             ]
-            console.log(camera_position[1].position);
             return(
                 <div className='view'>
                     {camera_position.map((e, i)=>{
