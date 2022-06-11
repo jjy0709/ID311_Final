@@ -24,14 +24,14 @@ function Floorplan(setwall_color, setfloor_color) {
             <div className="header">MAKE ROOM</div>
             <div className="sidebar">
                 <div>
-                    <button onClick={()=>setShowColorPicker_wall(showColorPicker_wall=>!showColorPicker_wall)}>{showColorPicker_wall ? 'close wall color picker' : 'Pick a wall color'}</button>
+                    <button onClick={()=>setShowColorPicker_wall(showColorPicker_wall=>!showColorPicker_wall)} className = "wall_picker">{showColorPicker_wall ? 'close wall color picker' : 'Pick a wall color'}</button>
                     {
                         showColorPicker_wall && (<ChromePicker color={color_wall} onChange={updatedColor => setColor_wall(updatedColor.hex)}/>)
                     }
                 </div>
              
                 <div>
-                    <button onClick={()=>setShowColorPicker_floor(showColorPicker_floor=>!showColorPicker_floor)}>{showColorPicker_floor ? 'close floor color picker' : 'Pick a floor color'}</button>
+                    <button onClick={()=>setShowColorPicker_floor(showColorPicker_floor=>!showColorPicker_floor)} className = "floor_picker">{showColorPicker_floor ? 'close floor color picker' : 'Pick a floor color'}</button>
                     {
                         showColorPicker_floor && (<ChromePicker color={color_floor} onChange={updatedColor => setColor_floor(updatedColor.hex)}/>)
                     }
@@ -40,6 +40,7 @@ function Floorplan(setwall_color, setfloor_color) {
             </div>
             
             <div className="Screen">
+                
                 <Canvas orthographic camera={{position:cameraPosition, zoom:zoom}}>
                     {/* <OrbitControls /> */}
                     <Camera />

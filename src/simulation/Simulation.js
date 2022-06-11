@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import * as Three from 'three';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Environment, PerspectiveCamera, useScroll, TransformControls } from '@react-three/drei';
-//import { TransformControls } from '@react-three/drei';
 import Cat from './cat';
 import ReactDom from "react-dom";
 
@@ -13,11 +12,17 @@ import Bed from './bed';
 import Desk from './desk';
 import Sidebar from './sidebar/Sidebar';
 
+import ChairIcon from '@mui/icons-material/Chair';
+import CameraswitchIcon from '@mui/icons-material/Cameraswitch';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
+
 function Simulation() {
     const [select, setSelect] = useState({id:-1});
     const [cameraPosition, setCameraPosition] = useState([0,60,100]);
     const [zoom, setZoom] = useState(10);
     const [option, setOption] = useState();
+    const [color_wall, setColor_wall] = useState('#fff');
+    const [color_floor, setColor_floor] = useState('#fff');
     
     const [furnitures, setFurniture] = useState([]);
     const addFurniture = (id) => {
@@ -33,57 +38,35 @@ function Simulation() {
         setCameraPosition(position);
     }
 
-    const Transformcontroller = () => {
-        const { camera, gl } = useThree();
-        useEffect(
-           () => {
-              const controls = new TransformControls(camera, gl.domElement);
-              return () => {
-                controls.dispose();
-              };
-           },
-           [camera, gl]
-        );
-        return null;
-     }
-    
-     const CameraController = () => {
-        const { camera, gl } = useThree();
-        useEffect(
-          () => {
-            const controls = new OrbitControls(camera, gl.domElement);
-      
-            controls.minDistance = 3;
-            controls.maxDistance = 20;
-            return () => {
-              controls.dispose();
-            };
-          },
-          [camera, gl]
-        );
-        return null;
-      };
+    const changewallcolor = (wallcolor)=>{
+        setColor_wall(wallcolor);
+    }
+
+    const changefloorcolor = (floorcolor)=>{
+        setColor_floor(floorcolor);
+    }
 
     return(
         <div className="Screen">
             <div className="sidebar">
                 <ul>
-                    <li className="option" onClick={()=>selectOption('furniture')} >Add Furniture</li>
-                    <li className="option" onClick={()=>selectOption('view')}>Another View</li>
-                    <li className="option" onClick={()=>selectOption('color')}>Change Color</li>
+                    <div className = "sidebartitle">
+                        Menu
+                    </div>
+                    <li className="option" onClick={()=>selectOption('furniture')}><ChairIcon/>Add Furniture</li>
+                    <li className="option" onClick={()=>selectOption('view')}><CameraswitchIcon/>Another View</li>
+                    <li className="option" onClick={()=>selectOption('color')}><ColorLensIcon/>Change Color</li>
                 </ul>
                 <div className="content">
-                    <Sidebar option={option} addFurniture={addFurniture} changeCameraPosition={changeCameraPosition} select={select}/>
+                    <Sidebar option={option} addFurniture={addFurniture} changeCameraPosition={changeCameraPosition} changewallcolor={changewallcolor} changefloorcolor={changefloorcolor} select={select}/>
                 </div>
             </div>
-            <Canvas >
-                <Transformcontroller />
-                <CameraController />
+            <Canvas orthographic camera={{position:{changeCameraPosition}, zoom:zoom}} >
                 <pointLight position={[0,0, 100]} castShadow/>
                 <directionalLight position={[20,20,20]} castShadow />
-                <Floor select={select} setSelect={setSelect} />
-                <Wall left={true} select={select} setSelect={setSelect}/>
-                <Wall left={false} select={select} setSelect={setSelect}/>
+                <Floor select={select} setSelect={setSelect} floor_color={setColor_floor}/>
+                <Wall left={true} select={select} setSelect={setSelect} wall_color = {setColor_wall}/>
+                <Wall left={false} select={select} setSelect={setSelect} wall_color = {setColor_wall}/>
                 {furnitures.map((e, i) => {
                     let now = false;
                     if(i == select.id) now = true;

@@ -10,7 +10,7 @@
     background-color: rgb(223, 223, 223);
     float: left;
     display: flex;
-    width: 45%;
+    width: 30%;
     font-size: 2vh;
 }
 
@@ -24,3 +24,6 @@
     margin-top: 15px;
 }
 
+.sidebartitle{
+    font-size: 3vh;
+}

@@ -3,3 +3,14 @@
     border-color: black;
     border-width: 1px;
 }
+
+.positionlist{
+    width: 80%;
+    border-color: black;
+    border-width: 1px;
+}
+
+.colorpicker_title{
+    color : rgb(255, 255, 255);
+    font-weight :2;
+}

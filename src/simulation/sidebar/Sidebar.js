@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Camera } from 'three';
 import { fur_list } from "./furnitures";
 import './Sidebar.css'
+import {ChromePicker} from 'react-color';
 
 import faceside from './cameraposition/faceside.png';
 import leftside from './cameraposition/leftside.png';
@@ -9,7 +10,7 @@ import rightside from './cameraposition/rightside.png';
 import upside from './cameraposition/upside.png';
 
 
-function Sidebar({option, addFurniture, changeCameraPosition}) {
+function Sidebar({option, addFurniture, changeCameraPosition, changefloorcolor, changewallcolor}) {
     switch (option) {
         case 'furniture': {
             return(
@@ -40,7 +41,15 @@ function Sidebar({option, addFurniture, changeCameraPosition}) {
         case 'color' :{
             return(
                 <div className='color'>
-                    Not Yet
+                    <div>
+                        <div className ='colorpicker_title'>Wall color</div>
+                        <ChromePicker color={'#fff'} onChange={updatedColor => changewallcolor(updatedColor.hex)}/>
+                    </div>
+             
+                    <div>
+                        <div className ='colorpicker_title'>Floor color</div>
+                        <ChromePicker color={'#fff'} onChange={updatedColor => changefloorcolor(updatedColor.hex)}/>
+                    </div>
                 </div>
             )
         }
