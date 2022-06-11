@@ -1,14 +1,14 @@
-import {ChromPicker} from 'react-color';
 import { useState } from 'react';
-import * as Three from 'three'
 import { Edges } from '@react-three/drei';
 
 function Floor({select, setSelect}) {
     const [color, setColor] = useState('#ffffff');
+
     const down = (e) => {
-        setSelect({...select, id:'Floor', key:'floor', setColor});
+        setSelect({...select, id:'Floor', key:'floor', color, setColor});
     }
     const color_c = getCompColor(color);
+
     return (
         <mesh rotation-x={-Math.PI/2} rotation-z={Math.PI/2} position={[0,-24.5,0]} castShadow receiveShadow onPointerDown={(e)=>down(e)}>
             <boxBufferGeometry attach="geometry" args={[50, 50, 1]} />
@@ -20,10 +20,9 @@ function Floor({select, setSelect}) {
 
 function Wall({select, setSelect}) {
     const [color, setColor] = useState('#ffffff');
-    // const position = left?[-18,0,-18]:[18,0,-18];
-    // const angle = left?-Math.PI*3/4:Math.PI*3/4;
+
     const down = (e) => {
-        setSelect({...select, id:'Wall', key:'wall', setColor})
+        setSelect({...select, id:'Wall', key:'wall', color, setColor})
     }
     const color_c = getCompColor(color);
     
@@ -56,4 +55,4 @@ function getCompColor(color) {
     return '#' + red_ + green_ + blue_;
 }
 
-export { Floor, Wall, getCompColor };
+export { Floor, Wall };

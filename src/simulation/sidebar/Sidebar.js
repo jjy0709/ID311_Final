@@ -1,8 +1,9 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Camera } from 'three';
-import { fur_list } from "./furnitures";
-import './Sidebar.css'
+import React, { useState } from 'react';
 import {ChromePicker} from 'react-color';
+
+import { fur_list } from "./furnitures";
+
+import './Sidebar.css'
 
 import faceside from './cameraposition/faceside.png';
 import leftside from './cameraposition/leftside.png';
@@ -19,8 +20,6 @@ function Sidebar({option, addFurniture, changeCameraPosition, select}) {
     ]
 
     const [cameraPosition, setCameraPosition] = useState([0,60,100]);
-    const [color_wall, setColor_wall] = useState('#fff');
-    const [color_floor, setColor_floor] = useState('#fff');
 
     switch (option) {
         case 'furniture': {
@@ -31,7 +30,6 @@ function Sidebar({option, addFurniture, changeCameraPosition, select}) {
                     })}
                 </div>
             ) 
-            break;
         }
         case 'view':{
             return(
@@ -70,14 +68,8 @@ function Sidebar({option, addFurniture, changeCameraPosition, select}) {
                 <div className='color'>
                     <div>
                         <div className ='colorpicker_title'>{select.id} color</div>
-                        <ChromePicker color={color_wall} onChange={updatedColor => changeColor(updatedColor.hex)}/>
+                        <ChromePicker color={'#fff'} onChange={updatedColor => changeColor(updatedColor.hex)}/>
                     </div>
-             
-                    {/* <div>
-                        <div className ='colorpicker_title'>Floor color</div>
-                        <ChromePicker color={color_floor} onChange={updatedColor => {changefloorcolor(updatedColor.hex)
-                        setColor_floor(updatedColor.hex)}}/>
-                    </div> */}
                 </div>
             )
         }

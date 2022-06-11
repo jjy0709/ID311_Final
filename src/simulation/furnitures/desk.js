@@ -53,7 +53,7 @@ function Desk({select, setSelect, pos, id}) {
     });
 
     const down = (e, sector) => {
-        setSelect({...select,id:'Desk', key:id, setColor});
+        setSelect({...select,id:'Desk', key:id, color, setColor});
         setPrev(new THREE.Vector3(e.point.x, e.point.y, e.point.z));
         setDrag(true);
     }

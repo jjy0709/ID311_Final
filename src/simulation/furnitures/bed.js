@@ -68,7 +68,7 @@ function Bed({select, setSelect, pos, id}) {
     });
 
     const down = (e, sector) => {
-        setSelect({...select,id:'Bed',key:id, setColor});
+        setSelect({...select,id:'Bed',key:id, color, setColor});
         setPrev(new THREE.Vector3(e.point.x, e.point.y, e.point.z));
         setDrag(true);
     }

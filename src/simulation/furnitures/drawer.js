@@ -53,7 +53,7 @@ function Drawer({select, setSelect, pos, id}) {
     });
 
     const down = (e, sector) => {
-        setSelect({...select,id:'Drawer', key:id, setColor});
+        setSelect({...select,id:'Drawer', key:id, color, setColor});
         setPrev(new THREE.Vector3(e.point.x, e.point.y, e.point.z));
         setDrag(true);
     }

@@ -1,12 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import * as Three from 'three';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Environment, PerspectiveCamera, OrthographicCamera,useScroll, TransformControls } from '@react-three/drei';
-import ReactDom from "react-dom";
+import { Canvas } from '@react-three/fiber';
 
-import './Simulation.css';
 import { Floor, Wall } from '../floorplan/wall';
-import Camera from './Camera';
 import * as Furniture from './furnitures/index.js'
 import Sidebar from './sidebar/Sidebar';
 
@@ -14,13 +10,13 @@ import ChairIcon from '@mui/icons-material/Chair';
 import CameraswitchIcon from '@mui/icons-material/Cameraswitch';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 
+import './Simulation.css';
+
 function Simulation() {
-    const [select, setSelect] = useState({id:-1});
+    const [select, setSelect] = useState({color:'#fff'});
     const [cameraPosition, setCameraPosition] = useState([100,60,100]);
     const [zoom, setZoom] = useState(10);
     const [option, setOption] = useState();
-    // const [color_wall, setColor_wall] = useState('#fff');
-    // const [color_floor, setColor_floor] = useState('#fff');
     
     const [furnitures, setFurniture] = useState([]);
     const addFurniture = (id) => {
@@ -34,14 +30,6 @@ function Simulation() {
     const changeCameraPosition = (position)=>{
         setCameraPosition(position);
     }
-
-    // const changewallcolor = (wallcolor)=>{
-    //     setColor_wall(wallcolor);
-    // }
-
-    // const changefloorcolor = (floorcolor)=>{
-    //     setColor_floor(floorcolor);
-    // }
 
     return(
         <div className="Screen">
@@ -59,12 +47,10 @@ function Simulation() {
                 </div>
             </div>
             <Canvas orthographic camera={{position:cameraPosition, zoom:zoom}}>
-                {/* <OrthographicCamera position = {cameraPosition} zoom = {zoom}/> */}
                 <pointLight position={[100, 60, 100]} castShadow/>
                 <directionalLight position={[60,30,-20]} castShadow />
                 <Floor select={select} setSelect={setSelect} />
                 <Wall  select={select} setSelect={setSelect} />
-                {/* <Wall left={false} select={select} setSelect={setSelect} /> */}
                 {furnitures.map((e, i) => {
                     if(e === 'desk') {
                         return <Furniture.Desk select={select} setSelect={setSelect} pos={new Three.Vector3(0,-13.5, 0)} id={i} key={i}/>;

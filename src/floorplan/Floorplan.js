@@ -5,7 +5,6 @@ import * as Three from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import {ChromePicker} from 'react-color';
 import { Floor, Wall } from './wall';
-import Camera from './Camera';
 
 function Floorplan(setwall_color, setfloor_color) {
     const [select, setSelect] = useState({id:-1});
@@ -43,7 +42,7 @@ function Floorplan(setwall_color, setfloor_color) {
                 
                 <Canvas orthographic camera={{position:cameraPosition, zoom:zoom}}>
                     {/* <OrbitControls /> */}
-                    <Camera />
+                    {/* <Camera /> */}
                     {/* <ambientLight castShadow/> */}
                     <pointLight position={[0,0, 100]} castShadow/>
                     <directionalLight position={[20,20,20]} castShadow />

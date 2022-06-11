@@ -40,7 +40,7 @@ function Refrigerator({select, setSelect, pos, id}) {
     });
 
     const down = (e, sector) => {
-        setSelect({...select,id:'Refrigerator', key:id, setColor});
+        setSelect({...select,id:'Refrigerator', key:id, color, setColor});
         setPrev(new THREE.Vector3(e.point.x, e.point.y, e.point.z));
         setDrag(true);
     }
