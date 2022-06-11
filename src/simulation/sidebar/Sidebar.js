@@ -10,7 +10,7 @@ import rightside from './cameraposition/rightside.png';
 import upside from './cameraposition/upside.png';
 
 
-function Sidebar({option, addFurniture, changeCameraPosition, changefloorcolor, changewallcolor}) {
+function Sidebar({option, addFurniture, changeCameraPosition, select}) {
     const camera_position = [
         {name : "face", position:[0,60,100], img : faceside},
         {name : "right", position:[90,60,100], img : leftside},
@@ -62,21 +62,22 @@ function Sidebar({option, addFurniture, changeCameraPosition, changefloorcolor, 
                 </div>
             )
         }
-
         case 'color' :{
+            const changeColor = (color) => {
+                select.setColor(color);
+            }
             return(
                 <div className='color'>
                     <div>
-                        <div className ='colorpicker_title'>Wall color</div>
-                        <ChromePicker color={color_wall} onChange={updatedColor => {changewallcolor(updatedColor.hex)
-                        setColor_wall(updatedColor.hex)}}/>
+                        <div className ='colorpicker_title'>{select.id} color</div>
+                        <ChromePicker color={color_wall} onChange={updatedColor => changeColor(updatedColor.hex)}/>
                     </div>
              
-                    <div>
+                    {/* <div>
                         <div className ='colorpicker_title'>Floor color</div>
                         <ChromePicker color={color_floor} onChange={updatedColor => {changefloorcolor(updatedColor.hex)
                         setColor_floor(updatedColor.hex)}}/>
-                    </div>
+                    </div> */}
                 </div>
             )
         }
