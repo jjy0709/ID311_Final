@@ -30,7 +30,7 @@ function Simulation() {
     const changeCameraPosition = (position)=>{
         setCameraPosition(position);
     }
-
+    console.log(select.color);
     return(
         <div className="Screen">
             <div className="sidebar">

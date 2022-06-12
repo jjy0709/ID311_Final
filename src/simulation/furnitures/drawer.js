@@ -7,6 +7,16 @@ import bodyUrl from '../objects/drawer/box.obj'
 import legUrl from '../objects/drawer/black.obj'
 import doorUrl from '../objects/drawer/door.obj'
 
+// For save
+import app from '../../firebase.js'
+import {ref, child, get, set, getDatabase, onValue, once} from 'firebase/database' 
+import {
+    getAuth,
+    onAuthStateChanged,
+  } from 'firebase/auth'
+
+const db = getDatabase(app);
+
 function Drawer({select, setSelect, pos, id}) {
     const [position, setPosition] = useState(pos);
     const [rotation, setRotation] = useState(0);
@@ -114,6 +124,14 @@ function Drawer({select, setSelect, pos, id}) {
             if (newPosition.z > zlimit2[rotation%4]){
                 newPosition.z = zlimit2[rotation%4]
             }
+            console.log(rotation);
+            console.log(newPosition);
+            onAuthStateChanged(getAuth(app), (user) => {
+                set(ref(db, user.displayName+'/Theme/Furnitures/Drawer'), {
+                    Rotation: rotation,
+                    Position: newPosition,
+                  });
+            })
             setPosition(newPosition);
             return false;
         }
