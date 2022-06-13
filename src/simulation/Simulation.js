@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import * as Three from 'three';
 import { Canvas } from '@react-three/fiber';
+import { Link } from 'react-router-dom'
 
 import { Floor, Wall } from '../floorplan/wall';
 import * as Furniture from './furnitures/index.js'
@@ -9,6 +10,8 @@ import Sidebar from './sidebar/Sidebar';
 import ChairIcon from '@mui/icons-material/Chair';
 import CameraswitchIcon from '@mui/icons-material/Cameraswitch';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import './Simulation.css';
 
@@ -33,6 +36,7 @@ function Simulation() {
     console.log(select.color);
     return(
         <div className="Screen">
+            <Link to='/'><div className='gobackBtn'><ArrowBackIosIcon/></div></Link>
             <div className="sidebar">
                 <ul>
                     <div className = "sidebartitle">
@@ -40,7 +44,7 @@ function Simulation() {
                     </div>
                     <li className="option" onClick={()=>selectOption('furniture')}><ChairIcon/>Add Furniture</li>
                     <li className="option" onClick={()=>selectOption('color')}><ColorLensIcon/>Change Color</li>
-                    <li className="option" onClick={()=>setFurniture([])}><CameraswitchIcon/>Reset</li>
+                    <li className="option" onClick={()=>setFurniture([])}><DeleteIcon/>Reset</li>
                 </ul>
                 <div className="content">
                     <Sidebar option={option} addFurniture={addFurniture} changeCameraPosition={changeCameraPosition} select={select}/>

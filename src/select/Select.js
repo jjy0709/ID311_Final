@@ -2,6 +2,7 @@ import './Select.css';
 
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 // For save
 import app from '../firebase.js'
@@ -32,6 +33,7 @@ function Select() {
     // 룸 프리셋을 주지 않으니까 이름을 설정하는 페이지로 쓰는 게 어떨지
     return(
         <div className="select">
+            <Link to='/'><div className='gobackBtn'><ArrowBackIosIcon/></div></Link>
             <div className="header">WRITE <br/> YOUR ROOM NAME</div>
             <div className="area">
                 <div className="screen"> 

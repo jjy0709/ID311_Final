@@ -7,3 +7,7 @@
 .selectScreen{
     border : 8px solid black;
 }
+
+.gobackBtn{
+    font-size: 40px;
+}

@@ -9,6 +9,7 @@ import room_2 from './roomimg/2ndroom.png';
 import room_3 from './roomimg/3rdroom.png';
 import room_4 from './roomimg/4throom.png';
 import nothing from './roomimg/New.png';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 function screen(index) {
     
@@ -44,6 +45,7 @@ function Select_2() {
     
     return(
         <div className="select">
+            <Link to='/'><div className='gobackBtn'><ArrowBackIosIcon/></div></Link>
             <div className="header">SELECT <br/> ROOM THEME</div>
             <div className="area">
                 <div><img onClick={left} src={'/left.png'} className="btn"/></div>
