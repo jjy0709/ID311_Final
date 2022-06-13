@@ -3,6 +3,7 @@
     height: 100vh;
     background-size: cover;
     text-align : center;
+    align-content: center;
 }
 
 .logo {
@@ -62,8 +63,8 @@
     color: black;
     cursor: pointer;
     top:65vh;
-    left:50vh;
-    position:absolute;
+    /* left:50vh; */
+    /* position:absolute; */
 }
 
 .start:hover {
