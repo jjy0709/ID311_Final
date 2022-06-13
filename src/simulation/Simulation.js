@@ -16,6 +16,8 @@ import HelpIcon from '@mui/icons-material/Help';
 // import SaveIcon from '@mui/icons-material/Save';
 // import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import RotateLeftIcon from '@mui/icons-material/RotateLeft';
+import RotateRightIcon from '@mui/icons-material/RotateRight';
 
 import './Simulation.css';
 
@@ -87,11 +89,10 @@ function Simulation() {
                 
             </Canvas>
             <ul className='screenli'>
-                {/* <li className='screenoption'><SaveIcon/></li>
-                <li className='screenoption'><CloudUploadIcon/></li> */}
-                <li className='screenoption'><HelpIcon/></li>
                 <li className='screenoption'><AddAPhotoIcon/></li>
                 <li className='screenoption'><DeleteIcon/></li>
+                <li className='screenoption'><RotateLeftIcon/></li>
+                <li className='screenoption'><RotateRightIcon/></li>
             </ul>
         </div>
     );
