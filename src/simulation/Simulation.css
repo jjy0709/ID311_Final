@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'BMHanna Pro';
+    src: url('../font/BMHANNAProOTF.otf') format("opentype");
+    src: url('../font/BMHANNAPro.ttf') format("truetype");
+}
+
 .Screen {
     width: 100%;
     height: 100vh;
@@ -16,18 +22,33 @@
 
 .option {
     cursor: pointer;
+    font-size: large;
+    list-style-type: none; float:left; margin-left:20px;
+
+
 }
 
 .content {
     background-color: rgb(119, 119, 119);
-    margin-left: 15px;
-    margin-top: 15px;
+    margin-left: 5vh;
+    margin-top: 5vh;
 }
 
 .sidebartitle{
-    font-size: 3vh;
+    font-family: 'BMHanna Pro';
+    font-size: 5vh;
+    margin-left: 3vh;
 }
 
 .gobackBtn{
     font-size: large;
+}
+
+.screenoption{
+    list-style-type: none; 
+    float: column; 
+    margin-bottom:10vh;
+    font-family: 'BMHanna Pro';
+    font-size: 3vh;
+    margin-right: 6vh;
 }

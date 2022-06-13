@@ -8,16 +8,22 @@ import * as Furniture from './furnitures/index.js'
 import Sidebar from './sidebar/Sidebar';
 
 import ChairIcon from '@mui/icons-material/Chair';
-import CameraswitchIcon from '@mui/icons-material/Cameraswitch';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import DeleteIcon from '@mui/icons-material/Delete';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import HelpIcon from '@mui/icons-material/Help';
+// import SaveIcon from '@mui/icons-material/Save';
+// import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 import './Simulation.css';
 
 function Simulation() {
+    const [color_wall, setColor_wall] = useState('#fff');
+    const [color_floor, setColor_floor] = useState('#fff');
     const [select, setSelect] = useState({color:'#fff'});
-    const [cameraPosition, setCameraPosition] = useState([100,60,100]);
+    const [cameraPosition, setCameraPosition] = useState([0,60,100]);
     const [zoom, setZoom] = useState(10);
     const [option, setOption] = useState();
     
@@ -30,31 +36,37 @@ function Simulation() {
         setOption(op);
     }
 
-    const changeCameraPosition = (position)=>{
-        setCameraPosition(position);
+    const changewallcolor = (wallcolor)=>{
+        setColor_wall(wallcolor);
     }
+
+    const changefloorcolor = (floorcolor)=>{
+        setColor_floor(floorcolor);
+    }
+
     console.log(select.color);
     return(
         <div className="Screen">
             <Link to='/'><div className='gobackBtn'><ArrowBackIosIcon/></div></Link>
             <div className="sidebar">
-                <ul>
-                    <div className = "sidebartitle">
-                        Menu
-                    </div>
-                    <li className="option" onClick={()=>selectOption('furniture')}><ChairIcon/>Add Furniture</li>
-                    <li className="option" onClick={()=>selectOption('color')}><ColorLensIcon/>Change Color</li>
-                    <li className="option" onClick={()=>setFurniture([])}><DeleteIcon/>Reset</li>
+                <div className = "sidebartitle">
+                    Menu
+                </div>
+                <ul className='furnitureli'>
+                    <li className="option" onClick={()=>selectOption('furniture')}><ChairIcon/></li>
+                    <li className="option" onClick={()=>selectOption('color')}><ColorLensIcon/></li>
+                    <li className="option" onClick={()=>setFurniture([])}><LightbulbIcon/></li>
                 </ul>
                 <div className="content">
-                    <Sidebar option={option} addFurniture={addFurniture} changeCameraPosition={changeCameraPosition} select={select}/>
+                    <Sidebar option={option} addFurniture={addFurniture} select={select} changewallcolor={changewallcolor} changefloorcolor={changefloorcolor}/>
                 </div>
             </div>
             <Canvas orthographic camera={{position:cameraPosition, zoom:zoom}}>
-                <pointLight position={[100, 60, 100]} castShadow/>
-                <directionalLight position={[60,30,-20]} castShadow />
-                <Floor select={select} setSelect={setSelect} />
-                <Wall  select={select} setSelect={setSelect} />
+                <pointLight position={[0, 0, 100]} castShadow/>
+                <directionalLight position={[20,20,20]} castShadow />
+                <Floor select={select} setSelect={setSelect} floor_color={color_floor}/>
+                <Wall left={true} select={select} setSelect={setSelect} wall_color = {color_wall}/>
+                <Wall left={false} select={select} setSelect={setSelect} wall_color = {color_wall}/>
                 {furnitures.map((e, i) => {
                     if(e === 'desk') {
                         return <Furniture.Desk select={select} setSelect={setSelect} pos={new Three.Vector3(0,-13.5, 0)} id={i} key={i}/>;
@@ -72,7 +84,15 @@ function Simulation() {
                         return <Furniture.Table select={select} setSelect={setSelect} pos={new Three.Vector3(0, -13.5, 0)} id={i} key={i}/>
                     }
                 })}
+                
             </Canvas>
+            <ul className='screenli'>
+                {/* <li className='screenoption'><SaveIcon/></li>
+                <li className='screenoption'><CloudUploadIcon/></li> */}
+                <li className='screenoption'><HelpIcon/></li>
+                <li className='screenoption'><AddAPhotoIcon/></li>
+                <li className='screenoption'><DeleteIcon/></li>
+            </ul>
         </div>
     );
 }
