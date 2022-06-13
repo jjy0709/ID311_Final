@@ -23,6 +23,7 @@ let callback = false;
 
 
 function Home() {
+    const [Loged, setLoged] = useState(false);
     const navigate = useNavigate()
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => {
@@ -37,9 +38,20 @@ function Home() {
             navigate("/select");
         }
       };
+
+    const changedlogedstate = (Loged)=>{
+        if(Loged){
+            setLoged(false)
+        }
+        else{
+            setLoged(true)
+        }
+    }
+
     onAuthStateChanged(getAuth(app), (user) => {
         console.log(user.displayName);
         if (user) {
+            console.log('user : ', Loged)
             let data;
             const userRef = ref(db, user.displayName);
             onValue(userRef, (snapshot) => {
@@ -66,6 +78,8 @@ function Home() {
             }
             
         } else {
+            console.log('user : ', Loged)
+
             // before load data, please log in your google account
             title = "CANNOT FIND USER INFORMATION";
             message = "PLEASE LOGIN YOUR GOOGLE ACCOUNT";
@@ -74,15 +88,18 @@ function Home() {
     return(
         <div className="home">
             <img src={'/logo.png'} className="logo" />
-            <button className="login" onClick={signInGoogle}>LOGIN</button>
-            <button className="logout" onClick={signOutGoogle}>LOGOUT</button>
+            {/* <div className="login" onClick={signInGoogle}>LOGIN</div>
+            <div className="logout" onClick={signOutGoogle}>LOGOUT</div> */}
             <React.Fragment>
-                <button className="load" onClick={openModal}>LOAD DATA</button>
+                <div className='loginoutbutton' style={{textDecoration:'none'}} onClick={Loged ? signOutGoogle : signInGoogle}>{Loged ? 'LOGOUT' : 'LOGIN'}</div>
+                <Link to={Loged ? '/select_2' : '/select'} style={{textDecoration:'none'}}><div className='selectbutton' onClick={openModal} href={Loged ? '/select_2' : '/select'}>{Loged ? 'SELECT ROOM' : 'ANONYMOUS'}</div></Link>
+                {/* <div className="load" onClick={openModal}>LOAD DATA</div> */}
                 <Modal open={modalOpen} close={closeModal} header={title}>
                     {message}
                 </Modal>
             </React.Fragment>
-            <Link to="/select" style={{textDecoration:'none'}}><div className="start" href="/select" > START </div></Link>
+            
+            {/* <Link to="/select" style={{textDecoration:'none'}}><div className="start" href="/select" > START </div></Link> */}
         </div>
     )
 }

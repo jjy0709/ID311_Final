@@ -5,9 +5,10 @@ import {
 
   import app from '../firebase.js'
 
-const signOutGoogle= () => {
+function signOutGoogle(changedlogedstate){
     signOut(getAuth(app)).then(()=>{
         console.log("logout completely");
+        changedlogedstate(true);
     })
     .catch((error) => {
         console.log("error is occur");
