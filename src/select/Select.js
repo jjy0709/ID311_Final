@@ -4,14 +4,13 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react';
 
 // For save
-import app from '../firebase.js'
+import { app, db } from '../firebase.js'
 import {ref, child, get, set, getDatabase, onValue, once} from 'firebase/database' 
 import {
     getAuth,
     onAuthStateChanged,
   } from 'firebase/auth'
 
-const db = getDatabase(app);  
 
 function Select() {
     const [title, setTitle] = useState("");

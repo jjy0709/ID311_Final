@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as Three from 'three';
 import { Canvas } from '@react-three/fiber';
 
-import { Floor, Wall } from '../floorplan/wall';
+import { Floor, Wall } from './furnitures/wall';
 import * as Furniture from './furnitures/index.js'
 import Sidebar from './sidebar/Sidebar';
 
@@ -14,11 +14,11 @@ import './Simulation.css';
 
 function Simulation() {
     const [select, setSelect] = useState({color:'#fff'});
-    const [cameraPosition, setCameraPosition] = useState([100,60,100]);
-    const [zoom, setZoom] = useState(10);
+    const [renderer, setRenderer] = useState();
     const [option, setOption] = useState();
     
     const [furnitures, setFurniture] = useState([]);
+
     const addFurniture = (id) => {
         setFurniture([...furnitures, id]);
     }
@@ -27,10 +27,18 @@ function Simulation() {
         setOption(op);
     }
 
-    const changeCameraPosition = (position)=>{
-        setCameraPosition(position);
+    const canvasRenderer = (canvas) => {
+        setRenderer(new Three.WebGLRenderer({canvas, preserveDrawingBuffer: true}));
     }
-    console.log(select.color);
+
+    const screenShot = () => {
+        const image = renderer.domElement.toDataURL('image/png');
+        const a = document.createElement("a");
+        a.href = image.replace(/^data:image\/[^;]/, 'data:application/octet-stream');
+        a.download="image.png"
+        a.click();
+    }
+    
     return(
         <div className="Screen">
             <div className="sidebar">
@@ -41,12 +49,13 @@ function Simulation() {
                     <li className="option" onClick={()=>selectOption('furniture')}><ChairIcon/>Add Furniture</li>
                     <li className="option" onClick={()=>selectOption('color')}><ColorLensIcon/>Change Color</li>
                     <li className="option" onClick={()=>setFurniture([])}><CameraswitchIcon/>Reset</li>
+                    <li className="option" onClick={()=>screenShot()}><CameraswitchIcon/>ScreenShot</li>
                 </ul>
                 <div className="content">
-                    <Sidebar option={option} addFurniture={addFurniture} changeCameraPosition={changeCameraPosition} select={select}/>
+                    <Sidebar option={option} addFurniture={addFurniture} select={select}/>
                 </div>
             </div>
-            <Canvas orthographic camera={{position:cameraPosition, zoom:zoom}}>
+            <Canvas gl={canvas => canvasRenderer(canvas)} orthographic camera={{position:[100,60,100], zoom:10}} >
                 <pointLight position={[100, 60, 100]} castShadow/>
                 <directionalLight position={[60,30,-20]} castShadow />
                 <Floor select={select} setSelect={setSelect} />

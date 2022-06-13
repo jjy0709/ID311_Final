@@ -7,16 +7,6 @@ import bodyUrl from '../objects/drawer/box.obj'
 import legUrl from '../objects/drawer/black.obj'
 import doorUrl from '../objects/drawer/door.obj'
 
-// For save
-import app from '../../firebase.js'
-import {ref, child, get, set, getDatabase, onValue, once} from 'firebase/database' 
-import {
-    getAuth,
-    onAuthStateChanged,
-  } from 'firebase/auth'
-
-const db = getDatabase(app);
-
 function Drawer({select, setSelect, pos, id}) {
     const [position, setPosition] = useState(pos);
     const [rotation, setRotation] = useState(0);
@@ -90,10 +80,10 @@ function Drawer({select, setSelect, pos, id}) {
 
     document.onkeydown = function(e) {
         const newPosition = position.clone();
-        const xlimit1 = [-24, -20.5, -16.5, -20.5];
-        const xlimit2 = [17, 21, 25, 21];
-        const zlimit1 = [-20, -24.5, -20.5, -16.5];
-        const zlimit2 = [21, 17, 21, 25];
+        const xlimit1 = [-14.5, -16.5, -16.5, -20.5];
+        const xlimit2 = [25, 17, 25, 21];
+        const zlimit1 = [-16.5, -14, -20.5, -16.5];
+        const zlimit2 = [17, 25, 21, 25];
         if(select.key === id) {
             if(e.key === 'ArrowUp') {
                 newPosition.x -= 0.5;
@@ -124,14 +114,6 @@ function Drawer({select, setSelect, pos, id}) {
             if (newPosition.z > zlimit2[rotation%4]){
                 newPosition.z = zlimit2[rotation%4]
             }
-            console.log(rotation);
-            console.log(newPosition);
-            onAuthStateChanged(getAuth(app), (user) => {
-                set(ref(db, user.displayName+'/Theme/Furnitures/Drawer'), {
-                    Rotation: rotation,
-                    Position: newPosition,
-                  });
-            })
             setPosition(newPosition);
             return false;
         }
