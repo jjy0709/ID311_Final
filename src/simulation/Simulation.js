@@ -19,6 +19,9 @@ function Simulation() {
     
     const [furnitures, setFurniture] = useState([]);
 
+    const [color_wall, setColor_wall] = useState('#fff');
+    const [color_floor, setColor_floor] = useState('#fff');
+
     const addFurniture = (id) => {
         setFurniture([...furnitures, id]);
     }
@@ -29,6 +32,14 @@ function Simulation() {
 
     const canvasRenderer = (canvas) => {
         setRenderer(new Three.WebGLRenderer({canvas, preserveDrawingBuffer: true}));
+    }
+
+    const changewallcolor = (wallcolor)=>{
+        setColor_wall(wallcolor);
+    }
+
+    const changefloorcolor = (floorcolor)=>{
+        setColor_floor(floorcolor);
     }
 
     const screenShot = () => {
@@ -52,14 +63,14 @@ function Simulation() {
                     <li className="option" onClick={()=>screenShot()}><CameraswitchIcon/>ScreenShot</li>
                 </ul>
                 <div className="content">
-                    <Sidebar option={option} addFurniture={addFurniture} select={select}/>
+                    <Sidebar option={option} addFurniture={addFurniture} select={select} changewallcolor={changewallcolor} changefloorcolor={changefloorcolor}/>
                 </div>
             </div>
             <Canvas gl={canvas => canvasRenderer(canvas)} orthographic camera={{position:[100,60,100], zoom:10}} >
                 <pointLight position={[100, 60, 100]} castShadow/>
                 <directionalLight position={[60,30,-20]} castShadow />
-                <Floor select={select} setSelect={setSelect} />
-                <Wall  select={select} setSelect={setSelect} />
+                <Floor select={select} setSelect={setSelect} floor_color={color_floor} />
+                <Wall  select={select} setSelect={setSelect} wall_color={color_wall}/>
                 {furnitures.map((e, i) => {
                     if(e === 'desk') {
                         return <Furniture.Desk select={select} setSelect={setSelect} pos={new Three.Vector3(0,-13.5, 0)} id={i} key={i}/>;
