@@ -1,6 +1,6 @@
 function Floor({select, setSelect, floor_color}) {
     const down = (e) => {
-        setSelect({...select, id:'Floor', key:'floor'});
+        setSelect({...select, id:'Floor', key:-1});
     }
 
     return (
@@ -13,7 +13,7 @@ function Floor({select, setSelect, floor_color}) {
 
 function Wall({select, setSelect, wall_color}) {
     const down = (e) => {
-        setSelect({...select, id:'Wall', key:'wall'})
+        setSelect({...select, id:'Wall', key:-1})
     }
 
     return (

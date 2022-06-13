@@ -49,6 +49,14 @@ function Simulation() {
         a.download="image.png"
         a.click();
     }
+
+    const delete_ = () => {
+        if(select && select.key > -1) {
+            const newFur = [...furnitures];
+            newFur.splice(select.key, 1);
+            setFurniture(newFur);
+        }
+    }
     
     return(
         <div className="Screen">
@@ -61,6 +69,7 @@ function Simulation() {
                     <li className="option" onClick={()=>selectOption('color')}><ColorLensIcon/>Change Color</li>
                     <li className="option" onClick={()=>setFurniture([])}><CameraswitchIcon/>Reset</li>
                     <li className="option" onClick={()=>screenShot()}><CameraswitchIcon/>ScreenShot</li>
+                    <li className="option" onClick={()=>delete_()}><CameraswitchIcon/>Delete</li>
                 </ul>
                 <div className="content">
                     <Sidebar option={option} addFurniture={addFurniture} select={select} changewallcolor={changewallcolor} changefloorcolor={changefloorcolor}/>
