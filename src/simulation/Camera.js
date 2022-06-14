@@ -36,10 +36,12 @@
             camera.position.z = 100;
             camera.lookAt(0,0,0);
         } else if (pos === 2) {
+            console.log(camera);
             camera.position.x = 0;
             camera.position.y = 100;
             camera.position.z = 0;
             camera.lookAt(0,0,0);
+            camera.rotation.z = Math.PI/4;
         } else if (pos === 3) {
             camera.position.x = 100;
             camera.position.y = 60;
