@@ -78,13 +78,13 @@ function Drawer({select, setSelect, pos, id}) {
         setDrag(false);
     }
 
-    document.onkeydown = function(e) {
-        const newPosition = position.clone();
-        const xlimit1 = [-14.5, -16.5, -16.5, -20.5];
-        const xlimit2 = [25, 17, 25, 21];
-        const zlimit1 = [-16.5, -14, -20.5, -16.5];
-        const zlimit2 = [17, 25, 21, 25];
-        if(select.key === id) {
+    if(select.key === id) {
+        document.onkeydown = function(e) {
+            const newPosition = position.clone();
+            const xlimit1 = [-14.5, -16.5, -16.5, -20.5];
+            const xlimit2 = [25, 17, 25, 21];
+            const zlimit1 = [-16.5, -14, -20.5, -16.5];
+            const zlimit2 = [17, 25, 21, 25];
             if(e.key === 'ArrowUp') {
                 newPosition.x -= 0.5;
                 newPosition.z -= 0.5;

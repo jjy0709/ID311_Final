@@ -1,7 +1,4 @@
-import * as Three from 'three';
  import { useThree } from "@react-three/fiber";
- import { useState } from "react";
- import { PerspectiveCamera, OrthographicCamera } from '@react-three/drei';
 
  function Camera({pos}) {
     const { camera } = useThree();
@@ -25,7 +22,31 @@ import * as Three from 'three';
         }
     }
 
-    document.addEventListener('keydown', changePosition);
+    // document.addEventListener('keydown', changePosition);
+
+    // function changePosition(e) {
+        if(pos === 1) {
+            camera.position.x = 100;
+            camera.position.y = 0;
+            camera.position.z = 0;
+            camera.lookAt(0,0,0);
+        } else if (pos === 2) {
+            camera.position.x = 0;
+            camera.position.y = 0;
+            camera.position.z = 100;
+            camera.lookAt(0,0,0);
+        } else if (pos === 3) {
+            camera.position.x = 100;
+            camera.position.y = 0;
+            camera.position.z = 100;
+            camera.lookAt(0,0,0);
+        } else if (pos === 0) {
+            camera.position.x = 100;
+            camera.position.y = 60;
+            camera.position.z = 100;
+            camera.lookAt(0,0,0);
+        }
+    // }
     
      return (
          <>

@@ -23,6 +23,8 @@ function Simulation() {
     const [color_wall, setColor_wall] = useState('#fff');
     const [color_floor, setColor_floor] = useState('#fff');
 
+    const [camera, setCamera] = useState(0);
+
     const addFurniture = (id) => {
         setFurniture([...furnitures, id]);
     }
@@ -71,13 +73,14 @@ function Simulation() {
                     <li className="option" onClick={()=>setFurniture([])}><CameraswitchIcon/>Reset</li>
                     <li className="option" onClick={()=>screenShot()}><CameraswitchIcon/>ScreenShot</li>
                     <li className="option" onClick={()=>delete_()}><CameraswitchIcon/>Delete</li>
+                    <li className="option" onClick={()=>setCamera(camera+1)}><CameraswitchIcon/>Change Camera</li>
                 </ul>
                 <div className="content">
                     <Sidebar option={option} addFurniture={addFurniture} select={select} changewallcolor={changewallcolor} changefloorcolor={changefloorcolor}/>
                 </div>
             </div>
             <Canvas gl={canvas => canvasRenderer(canvas)} orthographic camera={{position:[100,60,100], zoom:10}} >
-                <Camera />
+                <Camera pos={camera}/>
                 <pointLight position={[100, 60, 100]} castShadow/>
                 <directionalLight position={[60,30,-20]} castShadow />
                 <Floor select={select} setSelect={setSelect} floor_color={color_floor} />

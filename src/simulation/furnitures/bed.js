@@ -73,44 +73,45 @@ function Bed({select, setSelect, pos, id}) {
         setDrag(true);
     }
 
-    document.onkeydown = function(e) {
+    if(select.key === id) {
+        document.onkeydown = function(e) {
         const newPosition = position.clone();
         const xlimit1 = [-23.5, -34.5, -13.5, 14];
         const xlimit2 = [15, -11.5, 24.5, 36.5];
         const zlimit1 = [-34.5, -14, 13.5, -23];
         const zlimit2 = [-11, 24.5, 36.5, 14.5];
-        if(select.key === id) {
-            if(e.key === 'ArrowUp') {
-                newPosition.x -= 0.5;
-                newPosition.z -= 0.5;
-            } else if(e.key === 'ArrowDown') {
-                newPosition.x += 0.5;
-                newPosition.z += 0.5;
-            } else if(e.key === 'ArrowRight') {
-                newPosition.x += 0.5;
-                newPosition.z -= 0.5;
-            } else if(e.key === 'ArrowLeft') {
-                newPosition.x -= 0.5;
-                newPosition.z += 0.5;
-            } else if (e.key === ' ') {
-                setRotation(rotation+1);
-            } else if (e.key === 'c') {
-                console.log(newPosition);
-            }
-            if (newPosition.x < xlimit1[rotation%4]){
-                newPosition.x = xlimit1[rotation%4]
-            }
-            if (newPosition.x > xlimit2[rotation%4]){
-                newPosition.x = xlimit2[rotation%4]
-            }
-            if (newPosition.z < zlimit1[rotation%4]){
-                newPosition.z = zlimit1[rotation%4]
-            }
-            if (newPosition.z > zlimit2[rotation%4]){
-                newPosition.z = zlimit2[rotation%4]
-            }
-            setPosition(newPosition);
-            return false;
+        
+        if(e.key === 'ArrowUp') {
+            newPosition.x -= 0.5;
+            newPosition.z -= 0.5;
+        } else if(e.key === 'ArrowDown') {
+            newPosition.x += 0.5;
+            newPosition.z += 0.5;
+        } else if(e.key === 'ArrowRight') {
+            newPosition.x += 0.5;
+            newPosition.z -= 0.5;
+        } else if(e.key === 'ArrowLeft') {
+            newPosition.x -= 0.5;
+            newPosition.z += 0.5;
+        } else if (e.key === ' ') {
+            setRotation(rotation+1);
+        } else if (e.key === 'c') {
+            console.log(newPosition);
+        }
+        if (newPosition.x < xlimit1[rotation%4]){
+            newPosition.x = xlimit1[rotation%4]
+        }
+        if (newPosition.x > xlimit2[rotation%4]){
+            newPosition.x = xlimit2[rotation%4]
+        }
+        if (newPosition.z < zlimit1[rotation%4]){
+            newPosition.z = zlimit1[rotation%4]
+        }
+        if (newPosition.z > zlimit2[rotation%4]){
+            newPosition.z = zlimit2[rotation%4]
+        }
+        setPosition(newPosition);
+        return false;
         }
     }
 

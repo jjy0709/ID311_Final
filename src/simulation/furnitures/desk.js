@@ -78,13 +78,14 @@ function Desk({select, setSelect, pos, id}) {
         setDrag(false);
     }
 
-    document.onkeydown = function(e) {
-        const newPosition = position.clone();
-        const xlimit1 = [-17, -13.5, -24.5, -14];
-        const xlimit2 = [24.5, 14, 17.5, 14];
-        const zlimit1 = [-13.5, -17, -14, -24.5];
-        const zlimit2 = [14, 24.5, 14, 17.5];
-        if(select.key === id) {
+    if(select.key === id) {
+        document.onkeydown = function(e) {
+            const newPosition = position.clone();
+            const xlimit1 = [-17, -13.5, -24.5, -14];
+            const xlimit2 = [24.5, 14, 17.5, 14];
+            const zlimit1 = [-13.5, -17, -14, -24.5];
+            const zlimit2 = [14, 24.5, 14, 17.5];
+            
             if(e.key === 'ArrowUp') {
                 newPosition.x -= 0.5;
                 newPosition.z -= 0.5;
