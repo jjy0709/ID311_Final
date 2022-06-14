@@ -25,19 +25,19 @@ function Sidebar({option, addFurniture, select, changefloorcolor, changewallcolo
             }
 
             return(
-                <div>
-                    <div>
+                <div className = 'color'>
+                    <div className='colorpicker'>
                         <div className ='colorpicker_title'>Wall color</div>
                         <ChromePicker color={color_wall} onChange={updatedColor => {changewallcolor(updatedColor.hex)
                         setColor_wall(updatedColor.hex)}}/>
                     </div>
              
-                    <div>
+                    <div className='colorpicker'>
                         <div className ='colorpicker_title'>Floor color</div>
                         <ChromePicker color={color_floor} onChange={updatedColor => {changefloorcolor(updatedColor.hex)
                         setColor_floor(updatedColor.hex)}}/>
                     </div>
-                    <div className='color'>
+                    <div className='colorpicker'>
                         <div>
                             <div className ='colorpicker_title'>{select.id} color</div>
                             <ChromePicker color={'#fff'} onChange={updatedColor => changeColor(updatedColor.hex)}/>

@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import * as Three from 'three';
 import { Canvas } from '@react-three/fiber';
+import { cam_list } from './sidebarresource';
 
 import { Floor, Wall } from './furnitures/wall';
 import * as Furniture from './furnitures/index.js'
 import Sidebar from './sidebar/Sidebar';
+import ReactTooltip from 'react-tooltip';
 
 import ChairIcon from '@mui/icons-material/Chair';
-import CameraswitchIcon from '@mui/icons-material/Cameraswitch';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
+import DeleteIcon from '@mui/icons-material/Delete';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import FlipCameraIosIcon from '@mui/icons-material/FlipCameraIos';
 
 import './Simulation.css';
 import Camera from './Camera';
@@ -22,6 +27,9 @@ function Simulation() {
 
     const [color_wall, setColor_wall] = useState('#fff');
     const [color_floor, setColor_floor] = useState('#fff');
+
+    const [menu, setMenu] = useState([0,0,0]);
+    const [cameratoggle, setCameraToggle] = useState(false);
 
     const addFurniture = (id) => {
         setFurniture([...furnitures, id]);
@@ -42,6 +50,11 @@ function Simulation() {
     const changefloorcolor = (floorcolor)=>{
         setColor_floor(floorcolor);
     }
+
+    const togglecameraMenu = ()=>{
+        setCameraToggle(cameratoggle=>!cameratoggle)
+    }
+
 
     const screenShot = () => {
         const image = renderer.domElement.toDataURL('image/png');
@@ -66,11 +79,12 @@ function Simulation() {
                     <div className = "sidebartitle">
                         Menu
                     </div>
-                    <li className="option" onClick={()=>selectOption('furniture')}><ChairIcon/>Add Furniture</li>
-                    <li className="option" onClick={()=>selectOption('color')}><ColorLensIcon/>Change Color</li>
-                    <li className="option" onClick={()=>setFurniture([])}><CameraswitchIcon/>Reset</li>
-                    <li className="option" onClick={()=>screenShot()}><CameraswitchIcon/>ScreenShot</li>
-                    <li className="option" onClick={()=>delete_()}><CameraswitchIcon/>Delete</li>
+                    <li className={menu[0] ? 'activate' : 'option'} onClick={()=>{selectOption('furniture')
+                        setMenu([1,0,0])}}><ChairIcon /></li>
+                    <li className={menu[1] ? 'activate' : 'option'} onClick={()=>{selectOption('color')
+                        setMenu([0,1,0])}}><ColorLensIcon /></li>
+                    <li className={menu[2] ? 'activate' : 'option'} onClick={()=>{selectOption('light')
+                        setMenu([0,0,1])}}><LightbulbIcon /></li>
                 </ul>
                 <div className="content">
                     <Sidebar option={option} addFurniture={addFurniture} select={select} changewallcolor={changewallcolor} changefloorcolor={changefloorcolor}/>
@@ -100,6 +114,16 @@ function Simulation() {
                     }
                 })}
             </Canvas>
+            <ul className='screenli'>
+                <li className='screenoption' onClick={()=>screenShot()}><a data-tip="Screenshot"><AddAPhotoIcon className='screenoptionicon'/></a><ReactTooltip place="left" type="light" effect="solid"/></li>
+                <li className='screenoption' onClick={()=>delete_()}><a data-tip="Reset"><DeleteIcon className='screenoptionicon'/></a><ReactTooltip place="left" type="light" effect="solid"/></li>
+                <li className='screenoption' onClick={()=>togglecameraMenu()}><a data-tip="Camera angle"><FlipCameraIosIcon className='screenoptionicon'/></a><ReactTooltip place="left" type="light" effect='solid'/></li>
+                    <div className={cameratoggle ? "optiontoggled" : "optionnottoggled"}>
+                        {cam_list.map((e,i) => {
+                            return (<img className={cameratoggle ? "toggled" : "nottoggled"} src={e.img} onClick={cameratoggle ? "rotatecamera" : ''} key={i}/>);
+                        })}
+                    </div>
+            </ul>
         </div>
     );
 }
