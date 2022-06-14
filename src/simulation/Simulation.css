@@ -14,35 +14,54 @@
 
 .sidebar {
     background-color: rgb(223, 223, 223);
-    float: left;
+    float:left;
     display: flex;
-    width: 30%;
+    width: 25%;
     font-size: 2vh;
+    flex-direction: column;
 }
 
 .option {
+    text-align: center;
+    width:calc(100%/3);
+    display:table-cell;
+    vertical-align:middle;
     cursor: pointer;
-    font-size: large;
-    list-style-type: none; float:left; margin-left:30px;
+    list-style-type: none; 
+    float:left; 
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
 
-
+.activate {
+    background-image: url(./sidebarresource/sidebarbackground.png);
+    text-align: center;
+    width:calc(100%/3);
+    display:table-cell;
+    vertical-align:middle;
+    cursor: pointer;
+    list-style-type: none; 
+    float:left; 
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .content {
-    background-color: rgb(119, 119, 119);
-    margin-left: 5vh;
-    margin-top: 5vh;
+    margin : 0;
+    padding : 0;
+    background-image: url(./sidebarresource/sidebarbackground.png);
+    overflow: auto;
 }
 
 .sidebartitle{
     font-family: 'BMHanna Pro';
     font-size: 5vh;
     margin-left: 3vh;
-    margin-top : 3vh;
-}
-
-.gobackBtn{
-    font-size: large;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    border-bottom: 1vh;
+    border-width: 3px;
+    border-color: black;
 }
 
 .screenoption{
@@ -53,3 +72,67 @@
     font-size: 3vh;
     margin-right: 6vh;
 }
+
+.furnitureli{
+    margin: 0;
+    display:table;
+    padding: 0;
+    background-color: rgb(145, 145, 145);
+}
+
+.option:hover{
+    color: white;
+}
+
+.screenli{
+    width: 10%;
+    margin: 0;
+    padding: 0;
+}
+
+.screenoption{
+    font-size: 10vh;
+    text-align:center;
+    margin: 0;
+    margin-top : 2.5vh;
+    margin-bottom: 2.5vh;
+    margin-right: 1vh;
+    padding: 0;
+}
+
+
+.screenoptionicon{
+    border: 3px solid rgb(0, 0, 0);
+    border-radius: 50%;
+    padding : 3vh;
+}
+
+.hovered{
+    font-size: large;
+}
+
+
+.optiontoggled{
+    margin-right: 3vh;
+    background-color: rgb(129, 129, 129);
+}
+
+.optionnottoggled{
+    background-color: white;
+}
+
+.nottoggled{
+    list-style-type: none;
+}
+
+
+.toggled{
+    list-style-type: none;
+    right:0px;
+    margin: 0;
+    margin-top : 1vh;
+    margin-bottom: 4vh;
+    margin-right: 1vh;
+    padding: 0;
+}
+

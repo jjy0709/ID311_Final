@@ -1,17 +1,30 @@
-.furImg {
-    width: 100%;
-    border-color: black;
-    border-width: 1px;
+@font-face {
+    font-family: 'BMHanna Pro';
+    src: url('C:\Users\saere\OneDrive\바탕 화면\소프프 파이널\ID311_Final\src\font\BMHANNAProOTF.otf') format("opentype");
+    src: url('C:\Users\saere\OneDrive\바탕 화면\소프프 파이널\ID311_Final\src\font\BMHANNAPro.ttf') format("truetype");
 }
 
-.positionlist{
-    width: 80%;
-    color : rgb(255, 255, 255);
-    font-weight :2;
+.furImg {
+    width: 100%;
+
 }
 
 .colorpicker_title{
-    font-size: 25px;
-    color : rgb(255, 255, 255);
+    font-family: 'BMHanna Pro';
+    font-size: 3vh;
+    color : rgb(0, 0, 0);
     font-weight :2;
+    margin-bottom: 1vh;
+}
+
+.colorpicker{
+    width: 100%;
+    margin-top: 20px;
+    vertical-align: middle;
+}
+
+.color{
+    width:100%;
+    margin-left: 1vh;
+    vertical-align: middle;
 }
