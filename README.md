@@ -1,7 +1,6 @@
 # ROOMTRIS - Make your own room!
 
 ## 0. About Us
----
 ### Team3
 - 20160621 MyeongWoon Cho
 - 20180614 JiYeong Jeong
@@ -24,7 +23,6 @@ Users can arrange furnitures in cubes and decorate their own rooms by changing t
 
 
 ## 1. The Manual of ROOMTRIS
----
 ### 1.1 Home
 ---
 
@@ -97,7 +95,6 @@ Each piece of furniture is not supposed to go out when it touches the wall.
 Feel free to move your furniture!
 
 ## 2. The Development Process of ROOMTRIS
----
 
 ### 2.1 Home
 ---
@@ -157,12 +154,10 @@ function App() {
 ```
 
 ## 3. Issues & Bugs
----
 - Collisions between furnitures cannot be implemented, resulting in **overlapping** phenomenon
 - Decorations on furniture like monitor, tissues etc. are modeled but not included due to the above phenomenon
 
 ## 4. Library & Tools & Challenges
----
 ### 4.1 We used...
 ---
 - React
@@ -197,5 +192,4 @@ function App() {
 - How to implement a physical engine in THREE.js library
 
 ## 5. Help & Resources
----
 - 
