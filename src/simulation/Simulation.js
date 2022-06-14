@@ -31,6 +31,8 @@ function Simulation() {
     const [menu, setMenu] = useState([0,0,0]);
     const [cameratoggle, setCameraToggle] = useState(false);
 
+    const [camera, setCamera] = useState(0);
+
     const addFurniture = (id) => {
         setFurniture([...furnitures, id]);
     }
@@ -75,10 +77,10 @@ function Simulation() {
     return(
         <div className="Screen">
             <div className="sidebar">
-                <ul>
-                    <div className = "sidebartitle">
+                <div className = "sidebartitle">
                         Menu
-                    </div>
+                </div>
+                <ul className='furnitureli'>
                     <li className={menu[0] ? 'activate' : 'option'} onClick={()=>{selectOption('furniture')
                          setMenu([1,0,0])}}><ChairIcon /></li>
                      <li className={menu[1] ? 'activate' : 'option'} onClick={()=>{selectOption('color')
@@ -91,7 +93,7 @@ function Simulation() {
                 </div>
             </div>
             <Canvas gl={canvas => canvasRenderer(canvas)} orthographic camera={{position:[100,60,100], zoom:10}} >
-                <Camera pos={0}/>
+                <Camera pos={camera}/>
                 <pointLight position={[100, 60, 100]} castShadow/>
                 <directionalLight position={[60,30,-20]} castShadow />
                 <Floor select={select} setSelect={setSelect} floor_color={color_floor} />
@@ -120,7 +122,7 @@ function Simulation() {
                 <li className='screenoption' onClick={()=>togglecameraMenu()}><a data-tip="Camera angle"><FlipCameraIosIcon className='screenoptionicon'/></a><ReactTooltip place="left" type="light" effect='solid'/></li>
                     <div className={cameratoggle ? "optiontoggled" : "optionnottoggled"}>
                         {cam_list.map((e,i) => {
-                            return (<img className={cameratoggle ? "toggled" : "nottoggled"} src={e.img} onClick={cameratoggle ? "rotatecamera" : ''} key={i}/>);
+                            return (<img className={cameratoggle ? "toggled" : "nottoggled"} src={e.img} onClick={() => setCamera(i)} key={i}/>);
                         })}
                     </div>
             </ul>
