@@ -12,6 +12,7 @@ function Bed({select, setSelect, pos, id}) {
     const [position, setPosition] = useState(pos);
     const [rotation, setRotation] = useState(0);
     const [color, setColor] = useState('#449647');
+    const [removed , setRemoved] = useState(false);
 
     const [prev, setPrev] = useState();
     const [drag, setDrag] = useState(false);
@@ -68,7 +69,7 @@ function Bed({select, setSelect, pos, id}) {
     });
 
     const down = (e, sector) => {
-        setSelect({...select,id:'Bed',key:id, color, setColor});
+        setSelect({...select,id:'Bed',key:id, color, setColor, setRemoved});
         setPrev(new THREE.Vector3(e.point.x, e.point.y, e.point.z));
         setDrag(true);
     }
@@ -76,11 +77,11 @@ function Bed({select, setSelect, pos, id}) {
     if(select.key === id) {
         document.onkeydown = function(e) {
         const newPosition = position.clone();
-        const xlimit1 = [-23.5, -34.5, -13.5, 14];
-        const xlimit2 = [15, -11.5, 24.5, 36.5];
-        const zlimit1 = [-34.5, -14, 13.5, -23];
-        const zlimit2 = [-11, 24.5, 36.5, 14.5];
-        
+        const xlimit1 = [-23.5, -35.5, -13.5, 12.5];
+        const xlimit2 = [14, -12, 24.5, 36];
+        const zlimit1 = [-35.5, -14, 12.5, -23.5];
+        const zlimit2 = [-12, 24.5, 36, 14.5];
+        let rot = rotation;
         if(e.key === 'ArrowUp') {
             newPosition.x -= 0.5;
             newPosition.z -= 0.5;
@@ -94,21 +95,36 @@ function Bed({select, setSelect, pos, id}) {
             newPosition.x -= 0.5;
             newPosition.z += 0.5;
         } else if (e.key === ' ') {
+            rot = rot%4;
+            if(rot === 0) {
+                newPosition.x -= 24;
+                newPosition.z += 24;
+            } else if(rot === 1) {
+                newPosition.x += 24;
+                newPosition.z += 24;
+            } else if(rot === 2) {
+                newPosition.x += 24;
+                newPosition.z -= 24;
+            } else if(rot === 3) {
+                newPosition.x -= 24;
+                newPosition.z += 24;
+            }
+            rot += 1;
             setRotation(rotation+1);
         } else if (e.key === 'c') {
             console.log(newPosition);
         }
-        if (newPosition.x < xlimit1[rotation%4]){
-            newPosition.x = xlimit1[rotation%4]
+        if (newPosition.x < xlimit1[rot%4]){
+            newPosition.x = xlimit1[rot%4]
         }
-        if (newPosition.x > xlimit2[rotation%4]){
-            newPosition.x = xlimit2[rotation%4]
+        if (newPosition.x > xlimit2[rot%4]){
+            newPosition.x = xlimit2[rot%4]
         }
-        if (newPosition.z < zlimit1[rotation%4]){
-            newPosition.z = zlimit1[rotation%4]
+        if (newPosition.z < zlimit1[rot%4]){
+            newPosition.z = zlimit1[rot%4]
         }
-        if (newPosition.z > zlimit2[rotation%4]){
-            newPosition.z = zlimit2[rotation%4]
+        if (newPosition.z > zlimit2[rot%4]){
+            newPosition.z = zlimit2[rot%4]
         }
         setPosition(newPosition);
         return false;
@@ -116,6 +132,7 @@ function Bed({select, setSelect, pos, id}) {
     }
 
     return  (
+        removed?<></>:
         <mesh position={position} scale={0.04} rotation-y={-Math.PI/2 + Math.PI/2*rotation}>
         <group>
         <primitive onPointerDown={(e) => down(e, 0)} object={bodymodel}  />

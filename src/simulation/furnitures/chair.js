@@ -10,6 +10,7 @@ function Chair({select, setSelect, pos, id}) {
     const [position, setPosition] = useState(pos);
     const [rotation, setRotation] = useState(0);
     const [color, setColor] = useState('#333355');
+    const [removed , setRemoved] = useState(false);
 
     // for click move
     const [prev, setPrev] = useState();
@@ -40,7 +41,7 @@ function Chair({select, setSelect, pos, id}) {
     });
 
     const down = (e, sector) => {
-        setSelect({...select,id:'Chair', key:id, color, setColor});
+        setSelect({...select,id:'Chair', key:id, color, setColor, setRemoved});
         setPrev(new THREE.Vector3(e.point.x, e.point.y, e.point.z));
         setDrag(true);
     }
@@ -68,10 +69,11 @@ function Chair({select, setSelect, pos, id}) {
     if(select.key === id) {
         document.onkeydown = function(e) {
             const newPosition = position.clone();
-            const xlimit1 = [-24, -20.5, -16.5, -20.5];
-            const xlimit2 = [17, 21, 25, 21];
-            const zlimit1 = [-20, -24.5, -20.5, -16.5];
-            const zlimit2 = [21, 17, 21, 25];
+            const xlimit1 = [-24.5, -21, -17, -20.5];
+            const xlimit2 = [17.5, 21, 25, 21];
+            const zlimit1 = [-21, -24.5, -20.5, -17];
+            const zlimit2 = [21, 17.5, 21, 25];
+            let rot = rotation;
             if(e.key === 'ArrowUp') {
                 newPosition.x -= 0.5;
                 newPosition.z -= 0.5;
@@ -85,21 +87,22 @@ function Chair({select, setSelect, pos, id}) {
                 newPosition.x -= 0.5;
                 newPosition.z += 0.5;
             } else if (e.key === ' ') {
+                rot += 1;
                 setRotation(rotation+1);
             } else if (e.key === 'c') {
                 console.log(newPosition);
             }
-            if (newPosition.x < xlimit1[rotation%4]){
-                newPosition.x = xlimit1[rotation%4]
+            if (newPosition.x < xlimit1[rot%4]){
+                newPosition.x = xlimit1[rot%4]
             }
-            if (newPosition.x > xlimit2[rotation%4]){
-                newPosition.x = xlimit2[rotation%4]
+            if (newPosition.x > xlimit2[rot%4]){
+                newPosition.x = xlimit2[rot%4]
             }
-            if (newPosition.z < zlimit1[rotation%4]){
-                newPosition.z = zlimit1[rotation%4]
+            if (newPosition.z < zlimit1[rot%4]){
+                newPosition.z = zlimit1[rot%4]
             }
-            if (newPosition.z > zlimit2[rotation%4]){
-                newPosition.z = zlimit2[rotation%4]
+            if (newPosition.z > zlimit2[rot%4]){
+                newPosition.z = zlimit2[rot%4]
             }
             setPosition(newPosition);
             return false;
@@ -107,6 +110,7 @@ function Chair({select, setSelect, pos, id}) {
     }
 
     return  (
+        removed?<></>:
         <mesh castShadow scale={0.15} position={position} rotation-y={Math.PI/2-Math.PI*rotation/2}>
         <group>
         <primitive onPointerDown={(e) => down(e,0)} object={bodymodel}/>

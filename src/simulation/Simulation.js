@@ -31,7 +31,7 @@ function Simulation() {
     const [menu, setMenu] = useState([0,0,0]);
     const [cameratoggle, setCameraToggle] = useState(false);
 
-    const [camera, setCamera] = useState(0);
+    const [camera, setCamera] = useState(3);
 
     const addFurniture = (id) => {
         setFurniture([...furnitures, id]);
@@ -69,14 +69,12 @@ function Simulation() {
     const delete_ = (e) => {
         if(e.key === 'd') {
             if(select && select.key > -1) {
-                const newFur = [...furnitures];
-                newFur.splice(select.key, 1);
-                setFurniture(newFur);
+                select.setRemoved(true);
             }
         }
     }
 
-    document.addEventListener('keydown', delete_);
+    document.onkeyup = delete_;
     
     return(
         <div className="Screen">
@@ -120,7 +118,7 @@ function Simulation() {
             </Canvas>
             <ul className='screenli'>
                 <li className='screenoption' onClick={()=>screenShot()}><a data-tip="Screenshot"><AddAPhotoIcon className='screenoptionicon'/></a><ReactTooltip place="left" type="light" effect="solid"/></li>
-                <li className='screenoption' onClick={()=>setFurniture([])}><a data-tip="Reset"><DeleteIcon className='screenoptionicon'/></a><ReactTooltip place="left" type="light" effect="solid"/></li>
+                <li className='screenoption' onClick={()=>setFurniture([])}><a data-tip="Delete All"><DeleteIcon className='screenoptionicon'/></a><ReactTooltip place="left" type="light" effect="solid"/></li>
                 <li className='screenoption' onClick={()=>togglecameraMenu()}><a data-tip="Camera angle"><FlipCameraIosIcon className='screenoptionicon'/></a><ReactTooltip place="left" type="light" effect='solid'/></li>
                     <div className={cameratoggle ? "optiontoggled" : "optionnottoggled"}>
                         {cam_list.map((e,i) => {
