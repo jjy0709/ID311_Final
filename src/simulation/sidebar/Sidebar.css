@@ -1,16 +1,30 @@
-.furImg {
-    width: 100%;
-    border-color: black;
-    border-width: 1px;
+@font-face {
+    font-family: 'BMHanna Pro';
+    src: url('./font/BMHANNAProOTF.otf') format("opentype");
+    src: url('./font/BMHANNAPro.ttf') format("truetype");
 }
 
-.positionlist{
-    width: 80%;
-    color : rgb(255, 255, 255);
-    font-weight :2;
+.furImg {
+    width: 100%;
+
 }
 
 .colorpicker_title{
-    color : rgb(255, 255, 255);
+    font-family: 'BMHanna Pro';
+    font-size: 3vh;
+    color : rgb(0, 0, 0);
     font-weight :2;
+    margin-bottom: 1vh;
+}
+
+.colorpicker{
+    width: 100%;
+    margin-top: 20px;
+    vertical-align: middle;
+}
+
+.color{
+    width:100%;
+    margin-left: 1vh;
+    vertical-align: middle;
 }
