@@ -66,13 +66,17 @@ function Simulation() {
         a.click();
     }
 
-    const delete_ = () => {
-        if(select && select.key > -1) {
-            const newFur = [...furnitures];
-            newFur.splice(select.key, 1);
-            setFurniture(newFur);
+    const delete_ = (e) => {
+        if(e.key === 'd') {
+            if(select && select.key > -1) {
+                const newFur = [...furnitures];
+                newFur.splice(select.key, 1);
+                setFurniture(newFur);
+            }
         }
     }
+
+    document.addEventListener('keydown', delete_);
     
     return(
         <div className="Screen">
@@ -85,9 +89,7 @@ function Simulation() {
                          setMenu([1,0,0])}}><ChairIcon /></li>
                      <li className={menu[1] ? 'activate' : 'option'} onClick={()=>{selectOption('color')
                          setMenu([0,1,0])}}><ColorLensIcon /></li>
-                     <li className={menu[2] ? 'activate' : 'option'} onClick={()=>{selectOption('light')
-                         setMenu([0,0,1])}}><LightbulbIcon /></li>
-                         </ul>
+                </ul>
                 <div className="content">
                     <Sidebar option={option} addFurniture={addFurniture} select={select} changewallcolor={changewallcolor} changefloorcolor={changefloorcolor}/>
                 </div>
@@ -118,11 +120,11 @@ function Simulation() {
             </Canvas>
             <ul className='screenli'>
                 <li className='screenoption' onClick={()=>screenShot()}><a data-tip="Screenshot"><AddAPhotoIcon className='screenoptionicon'/></a><ReactTooltip place="left" type="light" effect="solid"/></li>
-                <li className='screenoption' onClick={()=>delete_()}><a data-tip="Reset"><DeleteIcon className='screenoptionicon'/></a><ReactTooltip place="left" type="light" effect="solid"/></li>
+                <li className='screenoption' onClick={()=>setFurniture([])}><a data-tip="Reset"><DeleteIcon className='screenoptionicon'/></a><ReactTooltip place="left" type="light" effect="solid"/></li>
                 <li className='screenoption' onClick={()=>togglecameraMenu()}><a data-tip="Camera angle"><FlipCameraIosIcon className='screenoptionicon'/></a><ReactTooltip place="left" type="light" effect='solid'/></li>
                     <div className={cameratoggle ? "optiontoggled" : "optionnottoggled"}>
                         {cam_list.map((e,i) => {
-                            return (<img className={cameratoggle ? "toggled" : "nottoggled"} src={e.img} onClick={() => setCamera(i)} key={i}/>);
+                            return (<img className={cameratoggle ? "toggled" : "nottoggled"} src={cameratoggle ? e.img : ''} onClick={() => setCamera(i)} key={i}/>);
                         })}
                     </div>
             </ul>
