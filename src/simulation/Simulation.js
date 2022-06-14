@@ -28,12 +28,8 @@ function Simulation() {
     const [color_wall, setColor_wall] = useState('#fff');
     const [color_floor, setColor_floor] = useState('#fff');
 
-<<<<<<< HEAD
-    const [camera, setCamera] = useState(0);
-=======
     const [menu, setMenu] = useState([0,0,0]);
     const [cameratoggle, setCameraToggle] = useState(false);
->>>>>>> 099d21a95fd56a9df651272bae5be481f15f4858
 
     const addFurniture = (id) => {
         setFurniture([...furnitures, id]);
@@ -83,19 +79,19 @@ function Simulation() {
                     <div className = "sidebartitle">
                         Menu
                     </div>
-                    <li className="option" onClick={()=>selectOption('furniture')}><ChairIcon/>Add Furniture</li>
-                    <li className="option" onClick={()=>selectOption('color')}><ColorLensIcon/>Change Color</li>
-                    <li className="option" onClick={()=>setFurniture([])}><CameraswitchIcon/>Reset</li>
-                    <li className="option" onClick={()=>screenShot()}><CameraswitchIcon/>ScreenShot</li>
-                    <li className="option" onClick={()=>delete_()}><CameraswitchIcon/>Delete</li>
-                    <li className="option" onClick={()=>setCamera(camera+1)}><CameraswitchIcon/>Change Camera</li>
-                </ul>
+                    <li className={menu[0] ? 'activate' : 'option'} onClick={()=>{selectOption('furniture')
+                         setMenu([1,0,0])}}><ChairIcon /></li>
+                     <li className={menu[1] ? 'activate' : 'option'} onClick={()=>{selectOption('color')
+                         setMenu([0,1,0])}}><ColorLensIcon /></li>
+                     <li className={menu[2] ? 'activate' : 'option'} onClick={()=>{selectOption('light')
+                         setMenu([0,0,1])}}><LightbulbIcon /></li>
+                         </ul>
                 <div className="content">
                     <Sidebar option={option} addFurniture={addFurniture} select={select} changewallcolor={changewallcolor} changefloorcolor={changefloorcolor}/>
                 </div>
             </div>
             <Canvas gl={canvas => canvasRenderer(canvas)} orthographic camera={{position:[100,60,100], zoom:10}} >
-                <Camera pos={camera}/>
+                <Camera pos={0}/>
                 <pointLight position={[100, 60, 100]} castShadow/>
                 <directionalLight position={[60,30,-20]} castShadow />
                 <Floor select={select} setSelect={setSelect} floor_color={color_floor} />
