@@ -1,0 +1,7 @@
+export {default as Bed} from './bed.js'
+export {default as Chair} from './chair.js'
+export {default as Desk} from './desk.js'
+export {default as Drawer} from './drawer.js'
+export {default as Refrigerator} from './refrigerator.js'
+export {default as Sofa} from './sofa.js'
+export {default as Table} from './table.js'

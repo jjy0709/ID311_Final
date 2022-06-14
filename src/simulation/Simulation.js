@@ -11,6 +11,7 @@ import CameraswitchIcon from '@mui/icons-material/Cameraswitch';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 
 import './Simulation.css';
+import Camera from './Camera';
 
 function Simulation() {
     const [select, setSelect] = useState({color:'#fff'});
@@ -76,6 +77,7 @@ function Simulation() {
                 </div>
             </div>
             <Canvas gl={canvas => canvasRenderer(canvas)} orthographic camera={{position:[100,60,100], zoom:10}} >
+                <Camera />
                 <pointLight position={[100, 60, 100]} castShadow/>
                 <directionalLight position={[60,30,-20]} castShadow />
                 <Floor select={select} setSelect={setSelect} floor_color={color_floor} />
