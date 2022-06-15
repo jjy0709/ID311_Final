@@ -10,7 +10,7 @@ Here is our [Git Repo](https://github.com/jjy0709/ID311_Final.git)
 
 Here is our [Website](https://id-311-final-team3.web.app/)
 
-Here is our [Demo Video]()
+Here is our [Demo Video](https://youtu.be/2r7SpwecCpA)
 
 ### What is ROOMTRIS?
 ---
@@ -56,13 +56,11 @@ The sidebar has two main functions. Click on each icon to activate the function.
 ![menu_color](./MD%20Img/menu_color.png)
 
 #### **1.2.2 Room Decoration Canvas**
-This canvas will be updated in real time with information about the furniture user added and the colors user changed to make it visible. 
-
-Clicking on a particular furniture on the canvas displays an outline and shows the user that this furniture has been selected.
+This canvas will be updated in real time with information about the furniture user added and the colors user changed to make it visible. Clicking on a particular furniture on the canvas displays an outline and shows the user that this furniture has been selected.
 
 ![canvas_3](./MD%20Img/canvas_3.png)
 
-#### **Toolbar**
+#### **1.2.3 Toolbar**
 
 ![Toolbar](./MD%20Img/toolbar.png)
 
@@ -134,7 +132,7 @@ Each furniture file in the Furniture folder reads and combines the obj files to 
 
 ![dia-sidebarfolder](./MD%20Img/dia-sidebar.png)
 
-Depending on the case of each menu, a function that adds furniture to the furniture ar in the sidebar.js file, or a function that changes the color of the object, works. A chrome color picker library was used to create a color wheel.
+Depending on the case of each menu, a function that adds furniture to the furniture array in the sidebar.js file, or a function that changes the color of the object, works. A chrome color picker library was used to create a color wheel.
 
 ### 2.3 Apps.js
 ---
@@ -164,32 +162,67 @@ function App() {
 - Firebase
 - THREE.js
 - MUI
+
 ### 4.2 Challenges & How did we solve problems?
 ---
-- Changing the color of only certain parts of the furniture
+- Changing Color
     
-    Initially, it was impossible to change the color of a particular part of the furniture because it was exported as a single object file. 
+    The furniture color informations are stored in each object, but the color value of the color wheel that changes the color is dealt in the sidebar.
     
-    > This was solved by exporting furniture for each part and then combining it into one.
+    > The `state` is declared in `simulation.js`, which is the parent of sidebar.js, a file that stores the sidebar color values, and (furniture).js, a file that applies colors. We used the method of passing this state from sidebar.js to (furniture).js.
+
+    > > When rendering furniture, use `useState`, which stores color values, to create a state that can store color values. ​​And to change this value when furniture is clicked, put the `setColor` function in `Select`, the parent state. You can change the color value by changing the state through `setColor`. Put Select as a property in sidebar.js to change the color of the furniture through the setColor function when changing the color.
+    ![dia-colorissue](./MD%20Img/dia-colorissue.png)
     
-- Move objects with mouse
+- Moving Objects
     
-    Planned to move furniture through mouse drag, but jittering occurred
+    Planned to move furniture through mouse drag, but jittering occurred.
     
-    > Move furniture through keyboard arrow keys and space bar.
+    > At this time, like color, create `setPosition` and `setRotation` functions and `State` that store the position and rotation values ​​in the (furniture).js file. When adding furniture to the array in `simulation.js`, the initial position of the furniture is set with the `pos` variable, the input value moved with the keyboard afterwards is resolved by changing it through the setPosition and setRotation functions in (furniture).js and displaying it on the canvas.
+    ![dia-moveissue](./MD%20Img/dia-moveissue.png)
     
-- Add collider for each object
+- Adding collider for each object
     
     In order to control the furniture from breaking through walls or floors, we planed to add colliders at each object so that it would no longer move when hit other object, but collider could not be added as furniture looks
     
-    > Limit the position range of each furniture to the inside of the wall to prevent being pierced without collider
+    > Limit the position range of each furniture to the inside of the wall to prevent being pierced without collider like this.
+
+    ```javascript
+    if(select.key === id) {
+        document.onkeydown = function(e) {
+            ...
+            if (newPosition.x < -19){
+                newPosition.x = -19
+            }
+            if (newPosition.x > 19.5){
+                newPosition.x = 19.5
+            }
+            if (newPosition.z < -19){
+                newPosition.z = -19
+            }
+            if (newPosition.z > 19.5){
+                newPosition.z = 19.5
+            }
+            setPosition(newPosition);
+            return false;
+        }
+    }
+    ```
+
 
 ### 4.3 What we learned?
 ---
-- How to create a web application using React
-- How to host on Firebase with React
-- How to implement a 3d model and move it with THREE.js library
-- How to implement a physical engine in THREE.js library
+- How to create a web application using `React`
+  - How to render multiple pages depending on path
+  - How to send and receive various data between components
+  - 
+
+- How to implement a 3d model and move it with `THREE.js` library
+  - How to import obj file and combine to make furniture
+  - How to change position, rotation, color value of each object
+  - How to deal with camera, light, canvas
+
+- How to host on `Firebase` with React
 
 ## 5. Help & Resources
 - 
