@@ -215,7 +215,6 @@ function App() {
 - How to create a web application using `React`
   - How to render multiple pages depending on path
   - How to send and receive various data between components
-  - 
 
 - How to implement a 3d model and move it with `THREE.js` library
   - How to import obj file and combine to make furniture
@@ -225,4 +224,5 @@ function App() {
 - How to host on `Firebase` with React
 
 ## 5. Help & Resources
-- 
+- Three.js document (https://threejs.org/docs/)
+- React Three fiber document (https://docs.pmnd.rs/react-three-fiber)
